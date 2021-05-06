@@ -1,0 +1,97 @@
+@media (prefers-color-scheme: dark) {
+  .logo {
+    filter: invert(0.1) contrast(0.9);
+  }
+}
+
+@mixin size-xl {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin size-lg {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin size-md {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin size-sm {
+  @media only screen and (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin size-xs {
+  @media only screen and (min-width: 0) {
+    @content;
+  }
+}
+
+@mixin size($type, $screen) {
+  @media only screen and ($type: $screen) {
+    @content;
+  }
+}
+
+#login-content {
+  text-align: left !important;
+
+  ion-grid {
+    height: 100%;
+    text-align: left !important;
+
+    &>ion-row {
+      height: 80%;
+
+      &>ion-col {
+        padding: 30px;
+
+        h2 {
+          font-weight: 400;
+          text-align: left;
+          margin-bottom: 20px;
+
+          @include size('max-width', 768px) {
+            font-size: 20px;
+          }
+        }
+
+        ion-list {
+          background-color: transparent;
+
+          ion-item {
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        .desc {
+          ion-col {
+            ion-text {
+              margin: 0 0 10px;
+            }
+
+            @include size('max-width', 368px) {
+              display: flex;
+              flex-direction: column;
+            }
+          }
+        }
+
+        ion-button {
+          @include size('max-width', 768px) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

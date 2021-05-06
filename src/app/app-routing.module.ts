@@ -3,7 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'tourt', pathMatch: 'full' },
-  { path: '**', redirectTo: 'tourt' },
   {
     path: 'tourt',
     loadChildren: () => import('./tourt/tourt.module').then(m => m.TourtPageModule)
@@ -32,6 +31,7 @@ const routes: Routes = [
     path: 'qr-exit',
     loadChildren: () => import('./qr-exit/qr-exit.module').then(m => m.QRExitPageModule)
   },
+  { path: '**', redirectTo: 'tourt' },
 ];
 
 @NgModule({

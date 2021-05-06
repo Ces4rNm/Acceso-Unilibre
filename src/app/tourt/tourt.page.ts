@@ -30,7 +30,9 @@ export class TourtPage implements OnInit {
 
   next(slides) {
     slides.isEnd().then(response => {
-      if (response) { this._router.navigate(['login']) };
+      if (response) {
+        this._router.navigate(['login']);
+      };
     });
     slides.slideNext();
   }
