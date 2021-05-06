@@ -1,0 +1,85 @@
+@mixin size-xl {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin size-lg {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin size-md {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin size-sm {
+  @media only screen and (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin size-xs {
+  @media only screen and (min-width: 0) {
+    @content;
+  }
+}
+
+@mixin size($type, $screen) {
+  @media only screen and ($type: $screen) {
+    @content;
+  }
+}
+
+ion-slides {
+  height: 100%;
+
+  ion-slide {
+    ion-grid {
+      height: 100%;
+
+      ion-row {
+        height: 100%;
+
+        img {
+          padding: 10px;
+
+          @include size('max-width', 768px) {
+            width: 80%;
+          }
+
+          &.logo {
+            @include size('max-width', 768px) {
+              width: 60%;
+            }
+          }
+        }
+
+        .description {
+          padding: 20px 40px 20px;
+
+          h1 {
+            font-weight: 400;
+            text-align: left;
+
+            @include size('max-width', 768px) {
+              font-size: 20px;
+            }
+          }
+
+          p {
+            line-height: 1.6;
+            font-weight: 400;
+
+            @include size('max-width', 768px) {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

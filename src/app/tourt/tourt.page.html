@@ -1,0 +1,87 @@
+<ion-content [fullscreen]="true">
+  <ion-slides #slides [options]="slideOpts" (ionSlideDidChange)="slideChanged(slides)">
+
+    <ion-slide>
+      <ion-grid>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" size-xL="6" size-lg="6" size-md="6">
+            <img src="assets/img/logo-circular.png" class="logo" alt="logo-circular">
+          </ion-col>
+          <ion-col size="12" size-xL="6" size-lg="6" size-md="6" class="ion-text-justify description">
+            <ion-text color="danger">
+              <h1>Apreciada comunidad Unilibrista</h1>
+            </ion-text>
+            <p>Este reporte de encuesta se estará realizando con el objetivo de hacer
+              seguimiento diario de sus condiciones de salud integral frente a la emergencia de salud pública mundial
+              (COVID-19), para vigilancia epidemiológica, así como para evaluar las estrategias y acciones más
+              adecuadas de prevención y contención del virus ante un posible retorno paulatino a las labores dentro de
+              las Instalaciones de la Universidad.</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-grid class="no-padding">
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" size-xL="6" size-lg="6" size-md="6">
+            <img src="assets/img/slides/undraw_social_distancing.svg" alt="undraw_social_distancing">
+          </ion-col>
+          <ion-col size="12" size-xL="6" size-lg="6" size-md="6" class="ion-text-justify description">
+            <ion-text color="warning">
+              <h1>¿Quien reporta la encuesta?</h1>
+            </ion-text>
+            <p>Trabajadores Administrativos.<br>
+              Docentes.<br>
+              Practicantes.<br>
+              Estudiantes.<br>
+              Contratistas.<br>
+              Visitantes de la Universidad Libre.</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <ion-grid>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" size-xL="6" size-lg="6" size-md="6">
+            <img src="assets/img/slides/undraw_medical_care_movn.svg" alt="undraw_medical_care_movn">
+          </ion-col>
+          <ion-col size="12" size-xL="6" size-lg="6" size-md="6" class="ion-text-justify description">
+            <ion-text color="warning">
+              <h1>¿En que momento reporto la encuesta?</h1>
+            </ion-text>
+            <p>Antes de dirigirte a las instalaciones de la universidad o al presentar sintomas de COVID-19.
+              <br>
+              <br>
+              Disponemos de un personal adecuado en la entrada de la universidad para valorar tu situacion y permitirte
+              el ingreso con el escaneo de tu código QR, el cual se genera al diligenciar la encuesta.</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-no-border">
+
+    <ion-grid class="no-padding">
+      <ion-row class="ion-justify-content-around ion-text-center">
+        <ion-col size="6">
+          <ion-button (click)="prev(slides);" *ngIf="activeIndex != 0" color="danger">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button (click)="next(slides);" color="danger">
+            <span *ngIf="showLogin">Continuar</span>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+</ion-footer>
