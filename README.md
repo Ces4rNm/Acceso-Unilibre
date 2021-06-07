@@ -2,7 +2,7 @@
 
 **Sobre el proyecto:**
 
-Front-end en Ionic (Seguimiento del covid en la univerisdad libre.).
+Front-end en Ionic (Seguimiento del covid en la univerisdad libre).
 > Esta APP esta desarrollada en Ionic usando Angular, HttpClient, AlertController y LoadingController...
 
 **Rutas principales**
