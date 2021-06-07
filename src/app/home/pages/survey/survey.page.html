@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Encuesta</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" id="main-content">
+  <form #form="ngForm" (ngSubmit)="sendSurvey(form)">
+    <ion-grid class="ion-text-left">
+
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-no-padding">
+          <!-- Survey -->
+          <ion-text color="dark" class="ion-text-justify bold">
+            <h4>{{survey.titulo}}</h4>
+          </ion-text>
+
+          <ion-list *ngFor="let pregunta of survey.preguntas;let i = index" class="ion-margin-bottom">
+            <ion-list-header class="ion-no-padding">
+              <ion-text color="oro" class="ion-text-left ion-padding-horizontal">
+                <ion-text color="tertiary" class="ion-text-left">
+                  <small class="bold">[{{i+1}}/{{survey.preguntas.length}}] {{(pregunta.obligatorio)?'- obligatorio*':''}}</small>
+                </ion-text>
+                <h5>{{pregunta.titulo}}</h5>
+              </ion-text>
+            </ion-list-header>
+            <!-- text -->
+            <div *ngIf="pregunta.tipo==0">
+              <ion-item lines="full" class="ion-no-padding">
+                <ion-textarea [(ngModel)]="pregunta.val" name="{{'textarea-'+i}}" [required]="pregunta.obligatorio"
+                  type="text" class="ion-margin-start" placeholder="Respuesta..."></ion-textarea>
+              </ion-item>
+            </div>
+            <!-- radio -->
+            <div *ngIf="pregunta.tipo==1">
+              <ion-radio-group [(ngModel)]="pregunta.val" name="{{'radio-'+i}}" [required]="pregunta.obligatorio">
+                <ion-item lines="full" *ngFor="let respuesta of pregunta.respuestas" class="ion-no-padding">
+                  <ion-text slot="start" class="ion-padding-start">
+                    {{respuesta.texto}}
+                  </ion-text>
+                  <ion-radio slot="start" [value]="respuesta.id"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </div>
+            <!-- checkbox -->
+            <div *ngIf="pregunta.tipo==2">
+              <ion-item lines="full" *ngFor="let respuesta of pregunta.respuestas" class="ion-no-padding">
+                <ion-text slot="start" class="ion-padding-start">
+                  {{respuesta.texto}}
+                </ion-text>
+                <ion-checkbox slot="end" (ionChange)="addCheckbox($event,respuesta,i,form);"></ion-checkbox>
+              </ion-item>
+              <ion-input [(ngModel)]="pregunta.val" name="{{'checkbox-'+i}}" [required]="pregunta.obligatorio" hidden>
+              </ion-input>
+            </div>
+          </ion-list>
+
+          <ion-text color="medium" class="ion-text-justify">
+            <p class="ion-padding-vertical">{{survey.desc}}</p>
+          </ion-text>
+
+          <ion-button type="submit" [disabled]="loading" class="ion-margin-vertical custom-button" color="primary"
+            expand="block">
+            <ion-label>
+              <ion-spinner *ngIf="loading"></ion-spinner> Enviar Encuesta
+            </ion-label>
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+</ion-content>

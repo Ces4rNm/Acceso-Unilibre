@@ -1,56 +1,109 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  urlBase: string = '';
-  urlRelative: string = this.urlBase + '';
-
-  token: string = '';
-
-  userData: any;
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
-    private _activateRoute: ActivatedRoute,
+    private _route: ActivatedRoute,
+    public _alertController: AlertController,
+    public _loadingController: LoadingController
   ) { }
 
   getHeaders(): any {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.token
-    })
-    return ({ headers: headers });
+    const headers = new HttpHeaders({
+      // 'Access-Control-Allow-Origin': '*'
+    });
+    return headers;
   }
 
-  post(url: any, formData: FormData) {
-    return this._http.post(url, formData, this.getHeaders());
-  }
-
-  login(email, pass): Observable<any> {
-    return this._http.get(this.urlRelative + `/userData.json?email=${email}&pass=${pass}`, this.getHeaders()).pipe(
-      map((data: any) => {
+  // All request
+  request(method: string, serviceName: string, body: any) {
+    return this._http[method](environment.serverUrl + serviceName, body, this.getHeaders()).pipe(
+      map((response: any) => {
+        console.log("response", response);
         // Validar datos
-        let valData = this.valData(0, { x: data });
-        if (!valData.isError) {
-          if (data.code = 0) {
-            this.userData = data;
-            return { valid: true, print: data.data.User };
-          } else {
-            return { valid: false, print: 'Response does not contain the parameter:User' };
-          }
+        let valData = this.valData(0, { x: response });
+        if (valData.is) {
+          return { valid: true, print: response };
         } else {
-          return { valid: false, print: valData.msgError };
+          return { valid: false, print: valData.msg };
         }
-      }),
-      catchError(this.handleError<any>('getUserData', []))
+      })
     );
+  }
+
+  // Session
+  public get session() {
+    try {
+      let session = JSON.parse(localStorage.getItem('session'));
+      if (session) {
+        return session;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+  public set session(value) {
+    localStorage.setItem('session', JSON.stringify(value));
+  }
+
+
+  // Alert
+  alert: any = {
+    create: null,
+    role: null
+  }
+  async presentAlert(cssClass, header, subHeader, message, buttons) {
+    this.alert.create = await this._alertController.create({
+      cssClass: cssClass,
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: [buttons]
+    });
+
+    await this.alert.create.present();
+
+    this.alert.role = await this.alert.create.onDidDismiss();
+    // console.log('onDidDismiss resolved with role', this.alert.role);
+  }
+
+  // Loading
+  loading: any = {
+    create: null,
+    role: null
+  };
+  async presentLoading(cssClass, spinner, message, showBackdrop, duration = 0) {
+    this.loading.create = await this._loadingController.create({
+      cssClass: cssClass, // string | string[] | undefined
+      spinner: spinner,// "bubbles" | "circles" | "circular" | "crescent" | "dots" | "lines" | "lines-small" | null | undefined
+      message: message,// IonicSafeString | string | undefined
+      showBackdrop: showBackdrop,// boolean
+      duration: duration //number
+    });
+    await this.loading.create.present();
+
+    this.loading.role = await this.loading.create.onDidDismiss();
+    // console.log('Loading dismissed!', this.loading.role);
+  }
+
+  async dismissLoading() {
+    if (this.loading) {
+      await this.loading.create.dismiss();
+    }
   }
 
   isJsonString(strJson: string): boolean {
@@ -63,53 +116,38 @@ export class AppService {
     return true;
   }
 
-  isError(resData: any): boolean {
-    return resData.hasOwnProperty('data') && resData.data.hasOwnProperty('Error');
+  isError(resData: any, errorName: string): any {
+    // Validar datos de JSON, Error...
+    if (this.isJsonString(JSON.stringify(resData))) {
+      if (resData == null || resData == undefined) {
+        return { is: false, msg: 'Answer with error' };
+      } else if (resData instanceof Array) {
+        return { is: true, msg: 'Ok Array' };
+      } else if (resData.hasOwnProperty('codigo')) {
+        if (resData.codigo != 0) {
+          return { is: false, msg: resData.msg };
+        } else {
+          return { is: true, msg: 'Ok Value' };
+        }
+      } else {
+        return { is: true, msg: 'Ok Value' };
+      }
+    } else {
+      return { is: false, msg: 'Invalid json response' };
+    }
   }
 
   valData(type: number, params: any): any {
-    // Validar datos de JSON, Error...
     switch (type) {
       case 0:
-        // Validar datos
-        if (this.isJsonString(JSON.stringify(params.x))) {
-          let res = true;
-          if (params.x) {
-            res = false;
-          }
-          let error = this.isError(params.x);
-          return {
-            isError: error || res,
-            msgError: error ? 'Answer with error' : ((res) ? 'Response empty:' + params.x : '')
-          };
-        } else {
-          return {
-            isError: true,
-            msgError: 'Invalid json response'
-          };
-        }
+        // Default
+        return this.isError(params.x, 'Error');
       case 1:
-        // Validar datos con un parametro extra de respuesta
-        if (this.isJsonString(JSON.stringify(params.x))) {
-          let res = true;
-          if (params.x && params.x.hasOwnProperty(params.y)) {
-            res = false;
-          }
-          let error = this.isError(params.x);
-          return {
-            isError: error || res,
-            msgError: error ? 'Answer with error' : ((res) ? 'Response does not contain the parameter:' + params.y : '')
-          };
-        } else {
-          return {
-            isError: true,
-            msgError: 'Invalid json response'
-          };
-        }
+        return this.isError(params.x, params.y);
       default:
         return {
-          isError: true,
-          msgError: 'Invalid parameter (type) in valData'
+          is: false,
+          msg: 'Invalid parameter type:(' + type + ') in valData'
         };
     }
   }

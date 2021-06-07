@@ -1,0 +1,41 @@
+@mixin mode($type) {// 'dark', 'light'
+  @media (prefers-color-scheme: dark) {
+      @content;
+  }
+}
+
+@mixin size-xl {
+  @media only screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin size-lg {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin size-md {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin size-sm {
+  @media only screen and (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin size-xs {
+  @media only screen and (min-width: 0) {
+    @content;
+  }
+}
+
+@mixin size($type, $screen) {// ('max-width',576px)
+  @media only screen and ($type: $screen) {
+    @content;
+  }
+}

@@ -1,0 +1,11 @@
+ion-item.active {
+  filter: invert(1);
+}
+
+ion-buttons.toggle {
+  margin-right: -15px;
+
+  &.ios {
+    margin-right: -2px;
+  }
+}

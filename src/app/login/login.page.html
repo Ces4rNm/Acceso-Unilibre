@@ -1,43 +1,49 @@
-<ion-content id="login-content" color="light" [fullscreen]="true">
-  <ion-grid class="ion-text-left">
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-text-justify description">
+<ion-content id="login-content" color="light">
 
-        <ion-row class="ion-justify-content-center ion-text-center">
-          <ion-col>
-            <img src="assets/img/logo-centrado.png" class="logo ion-margin-bottom" alt="logo-centrado">
-          </ion-col>
-        </ion-row>
+  <form #form="ngForm" (ngSubmit)="login(form)">
+    <ion-grid class="ion-text-left">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-text-justify description">
 
-        <ion-text color="warning" class="ion-margin-bottom">
-          <h2>Ingresa tus credenciales:</h2>
-        </ion-text>
+          <ion-row class="ion-justify-content-center ion-text-center">
+            <ion-col>
+              <img src="assets/img/logo-centrado.png" class="logo ion-margin-bottom" alt="logo-centrado">
+            </ion-col>
+          </ion-row>
 
-        <ion-list color="light">
-          <ion-item class="input">
-            <ion-input #inputEmail_ [(ngModel)]="inputEmail" type="text" placeholder="Documento o Correo"
-              required="true"></ion-input>
-          </ion-item>
-          <ion-item class="input">
-            <ion-input #inputPass_ [(ngModel)]="inputPass" type="password" placeholder="Contraseña" required="true">
+          <ion-text color="oro">
+            <h2 class="ion-margin-vertical">Ingresa tus credenciales:</h2>
+          </ion-text>
+
+          <ion-input name="email" [(ngModel)]="email" class="custom-input ion-margin-bottom" type="text" minlength="3"
+            maxlength="50" placeholder="Documento o Correo" required></ion-input>
+
+          <div class="custom-input-icon ion-margin-bottom">
+            <ion-input name="password" [(ngModel)]="password" type="text" minlength="3" maxlength="50"
+              placeholder="Contraseña" required>
             </ion-input>
             <ion-icon (click)="inputPass.type=(inputPass.type=='password')?'text':'password'" class="cursor-pointer"
-              name="eye" color="danger" slot="end"></ion-icon>
-          </ion-item>
-        </ion-list>
+              name="eye" color="primary" slot="end"></ion-icon>
+          </div>
 
-        <ion-row class="ion-margin-bottom desc">
-          <ion-col>
-            <ion-text color="medium" class="ion-float-start">¿Olvidaste tu contraseña?</ion-text>
-            <ion-text color="danger" class="ion-float-end">Registrarme</ion-text>
-          </ion-col>
-        </ion-row>
+          <div class="options ion-margin-vertical">
+            <ion-text [routerLink]="['/password']" color="medium" class="ion-float-start">
+              ¿Olvidaste tu contraseña?
+            </ion-text>
+            <ion-text [routerLink]="['/register']" color="primary" class="ion-float-end">
+              Registrarme
+            </ion-text>
+          </div>
 
-        <ion-button (click)="login()" class="ion-margin-top btn" size="large" color="danger" expand="block">
-          Iniciar sesión
-        </ion-button>
+          <ion-button type="submit" class="ion-margin-vertical custom-button" color="primary" expand="block" [disabled]="loading">
+            <ion-label>
+              <ion-spinner *ngIf="loading"></ion-spinner> Iniciar sesión
+            </ion-label>
+          </ion-button>
 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
 </ion-content>

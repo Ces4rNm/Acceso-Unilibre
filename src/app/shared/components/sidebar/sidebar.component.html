@@ -1,0 +1,30 @@
+<ion-list>
+  <ion-item *ngFor="let item of options" [routerLink]="item.url" [routerLinkActive]="['active']" class="cursor-pointer">
+    <ion-label>{{item.name}}</ion-label>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon [name]="item.icon" slot="icon-only" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Modo Oscuro:</ion-label>
+    <ion-buttons class="toggle" slot="end">
+      <ion-button>
+        <ion-toggle [checked]="darkMode" (ionChange)="change()"
+          ngDefaultControl color="dark">
+        </ion-toggle>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+
+  <ion-item (click)="logout()">
+    <ion-label>Cerrar Sesion</ion-label>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" color="primary" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+</ion-list>

@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { HomeGuard } from './shared/guards/home/home.guard';
+import { TourtGuard } from './shared/guards/tourt/tourt.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'tourt', pathMatch: 'full' },
   {
     path: 'tourt',
-    loadChildren: () => import('./tourt/tourt.module').then(m => m.TourtPageModule)
+    loadChildren: () => import('./tourt/tourt.module').then(m => m.TourtPageModule),
+    canActivate: [TourtGuard]
   },
   {
     path: 'login',
@@ -13,25 +16,21 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
+    canActivate: [HomeGuard]
   },
   {
-    path: 'report',
-    loadChildren: () => import('./report/report.module').then(m => m.ReportPageModule)
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
   {
-    path: 'qr-entry',
-    loadChildren: () => import('./qr-entry/qr-entry.module').then(m => m.QREntryPageModule)
+    path: 'password',
+    loadChildren: () => import('./password/password.module').then(m => m.PasswordPageModule)
   },
   {
-    path: 'qr-scan',
-    loadChildren: () => import('./qr-scan/qr-scan.module').then(m => m.QRScanPageModule)
+    path: '**',
+    loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundPageModule)
   },
-  {
-    path: 'qr-exit',
-    loadChildren: () => import('./qr-exit/qr-exit.module').then(m => m.QRExitPageModule)
-  },
-  { path: '**', redirectTo: 'tourt' },
 ];
 
 @NgModule({

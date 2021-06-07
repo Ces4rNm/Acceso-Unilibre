@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '../app.service';
+
 
 @Component({
   selector: 'app-login',
@@ -7,17 +9,47 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  inputEmail: string = "";
-  inputPass: string = "";
 
-  constructor(private _router: Router) { }
+  email: string = "1001";
+  password: string = "123";
 
-  ngOnInit() {
-  }
-  login() {
-    if (this.inputEmail && this.inputEmail != '' && this.inputPass && this.inputPass != '') {
-      console.log(this.inputEmail, this.inputPass);
-      this._router.navigate(['home']);
+  loading: boolean;
+
+  constructor(
+    private _router: Router,
+    public _appService: AppService
+  ) { }
+
+  ngOnInit() { }
+
+  login(data) {
+    if (data.form.status == 'VALID') {
+      if (data.form.value.email && data.form.value.password) {
+        let body = {
+          documento: data.form.value.email,
+          clave: data.form.value.password
+        }
+        this.loading = true;
+        this._appService.request('post', '/login', body).subscribe(data => {
+          if (data.valid) {
+            this._appService.session = data.print;
+            let session = data.print;
+            if (session.hasOwnProperty('rol')) {
+              this._router.navigate(['/home']);
+            } else {
+              this._router.navigate(['/login']);
+            }
+          } else {
+            localStorage.clear();
+            this._appService.presentAlert('msg-error', null, data.print, null, 'Aceptar');
+          }
+          this.loading = false;
+        });
+      } else {
+        this._appService.presentAlert('msg-error', null, 'Datos vacios en las credenciales', 'Documento o Correo: <br> ' + data.form.value.email + ' <br> <br> Contraseña: <br> ' + data.form.value.password, 'Aceptar');
+      }
+    } else {
+      this._appService.presentAlert('msg-error', null, 'Datos vacios en las credenciales', 'Documento o Correo: <br> ' + data.form.value.email + ' <br> <br> Contraseña: <br> ' + data.form.value.password, 'Aceptar');
     }
   }
 }
