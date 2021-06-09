@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QrExitPage implements OnInit {
 
+  loading: boolean = false;
+
   constructor() { }
 
   ngOnInit() {

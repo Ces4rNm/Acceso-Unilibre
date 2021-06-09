@@ -1,0 +1,24 @@
+#main-content {
+  &>ion-grid {
+    &>ion-row {
+      &>ion-col {
+        .section-1 {
+          #code_qr {
+            ion-icon {
+              font-size: 180px;
+              border: 15px solid #1ae49b;
+            }
+          }
+        }
+
+        .section-2 {
+          ion-toolbar {
+            .small {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

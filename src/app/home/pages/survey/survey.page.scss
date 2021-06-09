@@ -19,6 +19,14 @@
             width: calc(100% - 50px);
             margin-right: 0;
             pointer-events: none;
+
+            &::part(small) {
+              font-size: 20px;
+            }
+          }
+
+          ion-text::part(small) {
+            font-size: 20px;
           }
 
           ion-checkbox {
@@ -27,7 +35,7 @@
           }
 
           ion-radio {
-            margin: 18px 0 18px 10px ;
+            margin: 18px 0 18px 10px;
             height: 26px;
             width: 26px;
           }

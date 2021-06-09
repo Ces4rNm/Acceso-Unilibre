@@ -66,13 +66,14 @@ export class AppService {
     create: null,
     role: null
   }
-  async presentAlert(cssClass, header, subHeader, message, buttons) {
+  async presentAlert(cssClass, header, subHeader, message, buttons, cssClassbuttons = '') {
     this.alert.create = await this._alertController.create({
       cssClass: cssClass,
       header: header,
       subHeader: subHeader,
       message: message,
-      buttons: [buttons]
+      buttons: [{ text: buttons, cssClass: cssClassbuttons }],
+      backdropDismiss:  false
     });
 
     await this.alert.create.present();

@@ -1,0 +1,49 @@
+#main-content {
+  &>ion-grid {
+    &>ion-row {
+      &>ion-col {
+        &.scan {
+
+
+          .section-1 {
+            background-color: #E1E6EF;
+            position: relative;
+
+            #code_qr {
+              ion-icon {
+                font-size: 180px;
+                border: 15px solid #1ae49b;
+                margin: 50px 0;
+              }
+            }
+
+            #inf {
+              position: absolute;
+              bottom: 10px;
+              left: var(--ion-padding, 16px);
+
+              ion-chip {
+                --border-radius: 5px;
+                border-radius: 5px;
+              }
+            }
+          }
+
+          .section-2 {
+            #desc {
+              .small {
+                font-size: 14px;
+              }
+            }
+          }
+
+          .section-3 {
+            #options {
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+  }
+}

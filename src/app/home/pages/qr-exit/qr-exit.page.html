@@ -1,9 +1,47 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>qr-exit</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>QR de Salida</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content id="main-content" color="light">
+  <ion-grid class="ion-no-padding h-100 bg-light-b">
 
+    <ion-row class="ion-justify-content-center ion-align-items-center ion-no-padding">
+      <ion-col size="12" size-xL="4" size-lg="6" size-md="10" class="ion-text-center ion-no-padding scan">
+
+        <div class="section-1">
+          <div id="code_qr" class="ion-padding-vertical">
+            <ion-icon slot="end" name="qr-code-outline"></ion-icon>
+          </div>
+        </div>
+
+        <div class="section-2">
+          <ion-toolbar class="ion-text-justify  ion-padding">
+            <ion-text color="dark">
+              <p class="small">
+                Busca el código QR que se encuentra en las salida de la universidad para registrar tu salida.
+                <br>
+                Si presentas sintomas de covid-19 no dudes en responder la encuesta.
+              </p>
+            </ion-text>
+
+            <ion-button type="submit" [disabled]="loading" class="ion-margin-vertical custom-button rounded" color="primary"
+              expand="block">
+              <ion-label>
+                <ion-spinner *ngIf="loading"></ion-spinner> Registrar Salida
+              </ion-label>
+            </ion-button>
+          </ion-toolbar>
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>

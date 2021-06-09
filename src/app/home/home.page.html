@@ -38,7 +38,7 @@
   <ion-grid class="ion-text-left">
 
     <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-no-padding">
+      <ion-col size="12" size-xL="4" size-lg="6" size-md="10" class="ion-no-padding">
 
         <img src="assets/img/logo-ancho.png" class="logo" alt="logo-ancho">
 
@@ -59,14 +59,11 @@
           {{_appService.session.fecha_encuesta | formatDate : 1}}
         </ion-text>
 
-        <ion-button routerLink="/home/survey" class="ion-margin-vertical custom-button" color="primary" expand="block">
+        <ion-button routerLink="/home/survey" class="ion-margin-vertical custom-button rounded" color="primary" expand="block">
           <ion-label>
             <ion-spinner *ngIf="loading"></ion-spinner> Reportar encuesta
           </ion-label>
         </ion-button>
-
-      </ion-col>
-      <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-text-justify ion-no-padding">
 
         <ion-text color="medium">
           Recuerda llenar la encuesta antes de dirigirte a las instalaciones de la universidad o al presentar sintomas
@@ -81,14 +78,14 @@
           Realiza el uso correcto de la mascarilla y el lavado de manos constantemente.
         </ion-text>
 
-        <ion-button [disabled]="_appService.session.fecha_encuesta | formatDate : 2" routerLink="/home/qr-entry" class="ion-margin-vertical custom-button"
-          color="dark" expand="block">
+        <ion-button [disabled]="_appService.session.fecha_encuesta | formatDate : 2" routerLink="/home/qr-entry"
+          class="ion-margin-vertical custom-button rounded" color="dark" expand="block">
           <ion-label>Generar QR de entrada</ion-label>
           <ion-icon slot="end" name="qr-code-outline"></ion-icon>
         </ion-button>
 
         <ion-button [disabled]="_appService.session.fecha_encuesta | formatDate : 2" routerLink="/home/qr-exit"
-          class="ion-margin-vertical custom-button" color="medium" expand="block">
+          class="ion-margin-vertical custom-button rounded" color="medium" expand="block">
           <ion-label>Escanear QR de salida</ion-label>
           <ion-icon slot="end" name="scan-outline"></ion-icon>
         </ion-button>

@@ -1,9 +1,9 @@
 <ion-content id="login-content" color="light">
 
   <form #form="ngForm" (ngSubmit)="login(form)">
-    <ion-grid class="ion-text-left">
+    <ion-grid class="ion-text-left ion-no-padding">
       <ion-row class="ion-justify-content-center ion-align-items-center">
-        <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-text-justify description">
+        <ion-col size="12" size-xL="4" size-lg="6" size-md="10" class="ion-text-justify description">
 
           <ion-row class="ion-justify-content-center ion-text-center">
             <ion-col>
@@ -35,7 +35,7 @@
             </ion-text>
           </div>
 
-          <ion-button type="submit" class="ion-margin-vertical custom-button" color="primary" expand="block" [disabled]="loading">
+          <ion-button type="submit" class="ion-margin-vertical custom-button rounded" color="primary" expand="block" [disabled]="loading">
             <ion-label>
               <ion-spinner *ngIf="loading"></ion-spinner> Iniciar sesión
             </ion-label>

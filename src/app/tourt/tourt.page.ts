@@ -21,6 +21,8 @@ export class TourtPage implements OnInit {
 
   }
 
+  ionViewWillEnter() {}
+
   slideChanged(slides) {
     slides.getActiveIndex().then(index => {
       this.activeIndex = index;

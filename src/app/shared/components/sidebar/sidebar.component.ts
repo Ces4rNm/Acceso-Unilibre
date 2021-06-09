@@ -16,6 +16,11 @@ export class SidebarComponent implements OnInit {
       icon: 'home'
     },
     {
+      name: 'Permitir Acceso',
+      url: '/home/qr-scan',
+      icon: 'key'
+    },
+    {
       name: 'Actualizar Datos',
       url: '/register',
       icon: 'person-circle'
@@ -32,7 +37,7 @@ export class SidebarComponent implements OnInit {
     },
   ];
 
-  darkMode: boolean ;
+  darkMode: boolean;
 
   prefersDark: any;
 
@@ -53,7 +58,7 @@ export class SidebarComponent implements OnInit {
         document.body.classList.remove('dark');
         this.darkMode = false;
       }
-      console.log(e.matches,this.darkMode);
+      console.log(e.matches, this.darkMode);
     });
   }
 

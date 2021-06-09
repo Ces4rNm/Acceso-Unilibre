@@ -11,21 +11,24 @@ export class SurveyPage implements OnInit {
 
   loading: boolean;
 
-  survey: any = {};
+  survey: any;
 
   constructor(private _router: Router, public _appService: AppService) { }
 
   ngOnInit() { }
 
   ionViewWillEnter() {
+    this.survey = null;
+    this._appService.presentLoading('load-survey', 'circular', 'Cargando...', true, 0);
     // this.survey = {
     //   id: 0,
     //   titulo: 'El titulo de esta encuesta.',
     //   desc: 'AL enviar esta encuesta correctamente, tendrás acceso al código QR de entrada durante 6h, después de ese tiempo debes volver a hacer esta encuesta para obtener un nuevo codigo QR.',
     //   preguntas: [
     //     {
-    //       tipo: 0,
-    //       val: '',
+    //       id: 0,
+    //       tipo: 2,
+    //       val: [],
     //       titulo: "Elige los síntomas que presentas recientemente:",
     //       respuestas: [
     //         { id: 1, texto: 'Fiebre', isChecked: false },
@@ -38,43 +41,54 @@ export class SurveyPage implements OnInit {
     //         { id: 1, texto: 'Dolor de músculos', isChecked: false },
     //         { id: 1, texto: 'Ninguno de los anteriores', isChecked: false },
     //       ],
-    //       obligatorio: false,
+    //       obligatorio: true,
     //     },
     //     {
+    //       id: 1,
     //       tipo: 1,
     //       val: '',
-    //       titulo: "Elige las opciones que apliquen en tu caso:",
+    //       titulo: "Elige la opción que aplique en tu caso:",
     //       respuestas: [
-    //         { id: 1, texto: 'Estuve en contacto con alguien que tuvo alguno de estos síntomas', isChecked: false },
-    //         { id: 2, texto: 'Hice un viaje internacional en los últimos 30 días', isChecked: false },
-    //         { id: 3, texto: 'Hice un viaje nacional en los últimos 30 días', isChecked: false },
-    //         { id: 4, texto: 'Ninguno de los anteriores', isChecked: false },
+    //         { id: 1, texto: 'Estuve en contacto con alguien que presento alguno de estos síntomas mencionados'},
+    //         { id: 2, texto: 'Hice un viaje internacional en los últimos 30 días'},
+    //         { id: 3, texto: 'Hice un viaje nacional en los últimos 30 días'},
+    //         { id: 4, texto: 'Ninguno de los anteriores'},
     //       ],
     //       obligatorio: true,
     //     },
     //     {
-    //       tipo: 2,
-    //       val: [],
-    //       titulo: "El medio de transporte que utilizas para llegar a las instalaciones de la Universidad Libre:",
+    //       id: 2,
+    //       tipo: 1,
+    //       val: '',
+    //       titulo: "El medio de transporte habitual que utilizas para llegar a las instalaciones de la Universidad Libre:",
     //       respuestas: [
-    //         { id: 1, texto: 'En transporte público masivo: Transmetro, Transmilenio…', isChecked: false },
-    //         { id: 2, texto: 'En bus público', isChecked: false },
-    //         { id: 3, texto: 'En taxi público', isChecked: false },
-    //         { id: 4, texto: 'En el vehículo familiar/amigo', isChecked: false },
-    //         { id: 5, texto: 'En mi propio vehículo/bicicleta/caminando', isChecked: false },
+    //         { id: 1, texto: 'En transporte público masivo: Transmetro, Transmilenio…'},
+    //         { id: 2, texto: 'En bus público'},
+    //         { id: 3, texto: 'En taxi público'},
+    //         { id: 4, texto: 'En el vehículo familiar/amigo'},
+    //         { id: 5, texto: 'En mi propio vehículo/bicicleta/caminando'},
     //       ],
+    //       obligatorio: true,
+    //     },
+    //     {
+    //       id: 3,
+    //       tipo: 1,
+    //       val: '',
+    //       titulo: "¿Ya recibió la vacuna contra el COVID-19?",
+    //       respuestas: [
+    //         { id: 1, texto: 'Si, la primera dosis'},
+    //         { id: 2, texto: 'Si, la primera y segunda dosis'},
+    //         { id: 3, texto: 'No'},
+    //       ],
+    //       obligatorio: true,
+    //     },
+    //     {
+    //       id: 4,
+    //       tipo: 0,
+    //       val: '',
+    //       titulo: "Describa como te sientes al ingresar a la universidad de forma presencial en pandemia:",
+    //       respuestas: '',
     //       obligatorio: false,
-    //     },
-    //     {
-    //       tipo: 2,
-    //       val: [],
-    //       titulo: "¿Usted ya recibió la vacuna para el COVID-19?",
-    //       respuestas: [
-    //         { id: 1, texto: 'Si, la primera dosis', isChecked: false },
-    //         { id: 2, texto: 'Si, la primera y segunda dosis', isChecked: false },
-    //         { id: 3, texto: 'No', isChecked: false },
-    //       ],
-    //       obligatorio: true,
     //     }
     //   ]
     // };
@@ -95,8 +109,9 @@ export class SurveyPage implements OnInit {
         this.survey = data.print;
         console.log(this.survey);
       } else {
-        this._appService.presentAlert('msg-error', null, data.print, null, 'Aceptar');
+        this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
       }
+      this._appService.dismissLoading();
     });
   }
 
@@ -161,17 +176,16 @@ export class SurveyPage implements OnInit {
                   this._appService.session = update;
                   this._router.navigate(['/home']);
                 } else {
-                  this._appService.presentAlert('alert-error', null, data.print.msg, null, 'Aceptar');
+                  this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
                 }
               } else {
-                this._appService.presentAlert('alert-error', null, data.print.msg, null, 'Aceptar');
+                this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
               }
               this.loading = false;
             });
           } else {
             this.loading = false;
           }
-
         } else {
           this._appService.presentAlert(
             'alert-error',

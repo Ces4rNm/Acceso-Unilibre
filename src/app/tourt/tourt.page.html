@@ -1,5 +1,5 @@
 <ion-content id="tourt-content" color="light" [fullscreen]="true">
-  <ion-slides #slides [options]="slideOpts" (ionSlideDidChange)="slideChanged(slides)">
+  <ion-slides #slides pager="true" initialSlide="0" [options]="slideOpts" (ionSlideDidChange)="slideChanged(slides)">
 
     <ion-slide>
       <ion-grid>

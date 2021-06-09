@@ -16,7 +16,6 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     console.log(this._appService.session);
     this._menu.enable(true, 'menu');
-    this.closeMenu();
   }
 
   openMenu() {

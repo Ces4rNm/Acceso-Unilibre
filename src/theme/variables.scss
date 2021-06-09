@@ -146,6 +146,40 @@
 }
 
 // Style elements default
+$colors-class: ("primary":--ion-color-primary,
+  "secondary":--ion-color-secondary,
+  "tertiary":--ion-color-tertiary,
+  "success":--ion-color-success,
+  "warning":--ion-color-warning,
+  "danger":--ion-color-danger,
+  "dark":--ion-color-dark,
+  "medium":--ion-color-medium,
+  "light":--ion-color-light,
+  "oro":--ion-color-oro,
+  "grey":--ion-color-grey,
+  "white":--ion-color-white,
+  "redlight":--ion-color-redlight,
+);
+
+@each $name,
+$color in $colors-class {
+  .bg-#{$name} {
+    background: var($color) !important;
+  }
+
+  .color-#{$name} {
+    color: var($color) !important;
+  }
+}
+
+.bg-light-b {
+  background: #E6E6E6;
+}
+
+.color-light-b {
+  color: #E6E6E6;
+}
+
 ion-input.custom-input,
 ion-textarea.custom-input,
 ion-item.custom-input,
@@ -206,19 +240,30 @@ ion-button.custom-button {
     }
   }
 
-  &.rounded {
-    --border-radius: 5px;
-  }
-
-  ion-icon {
+  ion-icon:not(.icon-only) {
     font-size: 20px;
     position: absolute;
     right: 0;
   }
 }
 
+.rounded {
+  --border-radius: 5px!important;
+  border-radius: 5px!important;
+}
+
+.square {
+  --border-radius: 0;
+  border-radius: 0;
+}
+
 .alert-wrapper {
   border: 2px solid #8C8C8C;
+
+  .alert-button {
+    color: black;
+    font-weight: bold;
+  }
 }
 
 .alert-success {
@@ -238,6 +283,32 @@ ion-button.custom-button {
     border-color: #FF2E62;
   }
 }
+
+.text-left {
+  .alert-message {
+    text-align: left;
+  }
+}
+
+.text-right {
+  .alert-message {
+    text-align: right;
+  }
+}
+
+.text-center {
+  .alert-message {
+    text-align: center;
+  }
+}
+
+.text-justify {
+  .alert-message {
+    text-align: justify;
+  }
+}
+
+
 
 @media (prefers-color-scheme: light) {
   .ios body {
@@ -426,6 +497,20 @@ ion-button.custom-button {
     --ion-tab-bar-background: #1f1f1f;
 
     --ion-card-background: #1e1e1e;
+  }
+
+  .bg-light-b {
+    background: #222428;
+  }
+
+  .color-light-b {
+    color: #222428;
+  }
+
+  .alert-wrapper {
+    .alert-button {
+      color: white;
+    }
   }
 }
 

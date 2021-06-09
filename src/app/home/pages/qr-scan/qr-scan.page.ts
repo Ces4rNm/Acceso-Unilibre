@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-qr-scan',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QrScanPage implements OnInit {
 
-  constructor() { }
+  constructor(public _appService: AppService) { }
 
   ngOnInit() {
+  }
+
+  showDetail() {
+    console.log("ok");
+    this._appService.presentAlert(
+      'alert-success min-w-30 text-justify',
+      null,
+      'Descripción QR:',
+      'Actualmente no reporta síntomas ni factores de riesgo asociados al Covid-19.',
+      'Aceptar'
+    );
   }
 
 }
