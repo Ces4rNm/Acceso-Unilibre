@@ -25,6 +25,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/qr-exit/qr-exit.module').then(m => m.QrExitPageModule)
   },
   {
+    path: 'update-data',
+    loadChildren: () => import('./pages/update-data/update-data.module').then( m => m.UpdateDataPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('../not-found/not-found.module').then(m => m.NotFoundPageModule)
   },

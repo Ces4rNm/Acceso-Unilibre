@@ -22,18 +22,18 @@ export class SidebarComponent implements OnInit {
     },
     {
       name: 'Actualizar Datos',
-      url: '/register',
+      url: '/home/update-data',
       icon: 'person-circle'
     },
     {
-      name: 'Soporte',
+      name: 'Administrar Datos',
       url: '/soporte',
-      icon: 'help-buoy'
+      icon: 'bar-chart'
     },
     {
-      name: 'Developers',
+      name: 'Listado de Registros',
       url: '/soporte',
-      icon: 'code'
+      icon: 'medkit'
     },
   ];
 

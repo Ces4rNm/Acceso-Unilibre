@@ -2,11 +2,11 @@
 
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="login"></ion-back-button>
+      <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Registrar Usuario</ion-title>
+    <ion-title>Actualizar Datos</ion-title>
   </ion-toolbar>
-  
+
 </ion-header>
 
 <ion-content color="light" id="main-content">
@@ -38,7 +38,7 @@
               <div *ngIf="pregunta.tipo==0">
                 <ion-item lines="full" class="ion-no-padding">
                   <ion-textarea [(ngModel)]="pregunta.val" name="{{'textarea-'+i}}" [required]="pregunta.obligatorio"
-                    type="text" class="ion-margin-start" placeholder="Respuesta..."></ion-textarea>
+                    type="text" class="ion-margin-start" placeholder="Respuesta..." disabled></ion-textarea>
                 </ion-item>
               </div>
               <!-- radio -->
@@ -83,7 +83,7 @@
           <ion-button type="submit" [disabled]="loading" class="ion-margin-vertical custom-button rounded" color="primary"
             expand="block">
             <ion-label>
-              <ion-spinner *ngIf="loading"></ion-spinner> Crear Usuario
+              <ion-spinner *ngIf="loading"></ion-spinner> Actualizar Usuario
             </ion-label>
           </ion-button>
 
@@ -93,4 +93,3 @@
     </ion-grid>
   </form>
 </ion-content>
-

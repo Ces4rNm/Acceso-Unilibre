@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppService } from '../app.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-update-data',
+  templateUrl: './update-data.page.html',
+  styleUrls: ['./update-data.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class UpdateDataPage implements OnInit {
 
   loading: boolean;
 
@@ -19,7 +19,7 @@ export class RegisterPage implements OnInit {
       {
         id: 0,
         tipo: 0,
-        val: '',
+        val: 'Cesar Alejandro',
         titulo: "Nombres:",
         respuestas: '',
         obligatorio: true,
@@ -27,7 +27,7 @@ export class RegisterPage implements OnInit {
       {
         id: 0,
         tipo: 0,
-        val: '',
+        val: 'Nuñez Mariño',
         titulo: "Apellidos:",
         respuestas: '',
         obligatorio: true,
@@ -35,7 +35,7 @@ export class RegisterPage implements OnInit {
       {
         id: 0,
         tipo: 3,
-        val: '',
+        val: '1',
         titulo: "Tipo de documento:",
         respuestas: [
           { id: 1, texto: 'CC' },
@@ -46,7 +46,7 @@ export class RegisterPage implements OnInit {
       {
         id: 0,
         tipo: 0,
-        val: '',
+        val: '1001',
         titulo: "Documento:",
         respuestas: '',
         obligatorio: true,
