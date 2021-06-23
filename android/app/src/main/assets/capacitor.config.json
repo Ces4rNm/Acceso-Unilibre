@@ -1,0 +1,6 @@
+{
+	"appId": "com.unilibre.app",
+	"appName": "Unilibre-CovidApp",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

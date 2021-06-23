@@ -11,7 +11,7 @@ export class FormatDatePipe implements PipeTransform {
           return date.toLocaleString([], { hour12: true });
         } catch (error) {
           console.log('FormatDatePipe:1', error);
-          return date = '';
+          return '';
         }
       case 2:
         // ((Date from database + 6h) >= current Date):boolean
@@ -19,14 +19,40 @@ export class FormatDatePipe implements PipeTransform {
           let current = new Date();
           date = new Date(date);
           date.setHours(date.getHours() + 6);
-          console.log('(', current.getTime(), date.getTime(), ')', (current.getTime() >= date.getTime()));
+          // console.log('(', current.getTime(), date.getTime(), ')', (current.getTime() >= date.getTime()));
           return (current.getTime() >= date.getTime());
         } catch (error) {
           console.log('FormatDatePipe:2', error);
-          return date = true;
+          return true;
+        }
+      case 3:
+        // (Date from database + 6h):string
+        try {
+          date = new Date(date);
+          date.setHours(date.getHours() + 6);
+          return date.toLocaleString([], { hour12: true });
+        } catch (error) {
+          console.log('FormatDatePipe:3', error);
+          return true;
         }
       default:
-        return date
+        return date;
+    }
+  }
+}
+
+@Pipe({ name: 'typeAlert' })
+export class TypeAlertPipe implements PipeTransform {
+  transform(type: any): any {
+    switch (type) {
+      case 1:
+        return 'user-success';
+      case 0:
+        return 'user-warning';
+      case -1:
+        return 'user-danger';
+      default:
+        return type;
     }
   }
 }

@@ -2,9 +2,15 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="home" (click)="stopScan()"></ion-back-button>
     </ion-buttons>
     <ion-title>QR de Salida</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="resetScan();startScan();" *ngIf="scanResult || scanResult==''" color="dark"
+        class="button button-clear">
+        <ion-icon slot="icon-only" name="reload-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
@@ -15,29 +21,29 @@
     <ion-row class="ion-justify-content-center ion-align-items-center ion-no-padding">
       <ion-col size="12" size-xL="4" size-lg="6" size-md="10" class="ion-text-center ion-no-padding scan">
 
-        <div class="section-1">
-          <div id="code_qr" class="ion-padding-vertical">
-            <ion-icon slot="end" name="qr-code-outline"></ion-icon>
-          </div>
+        <div class="section-1" [ngClass]="{'disabled': !scanActive}">
+          <video #video width="100%"></video>
+          <canvas #canvas hidden></canvas>
+          <ion-icon *ngIf="scanResult" name="qr-code"></ion-icon>
+          <ion-icon *ngIf="scanResult==''" name="sad"></ion-icon>
         </div>
 
-        <div class="section-2">
-          <ion-toolbar class="ion-text-justify  ion-padding">
-            <ion-text color="dark">
-              <p class="small">
-                Busca el código QR que se encuentra en las salida de la universidad para registrar tu salida.
-                <br>
-                Si presentas sintomas de covid-19 no dudes en responder la encuesta.
-              </p>
-            </ion-text>
+        <div class="section-2 ion-text-justify ion-padding">
+          <ion-text color="dark">
+            <p class="small">
+              Busca el código QR que se encuentra en las salida de la universidad para registrar tu salida.
+              <br>
+              <br>
+              Si presentas sintomas de covid-19 no dudes en responder la encuesta.
+            </p>
+          </ion-text>
 
-            <ion-button type="submit" [disabled]="loading" class="ion-margin-vertical custom-button rounded" color="primary"
-              expand="block">
-              <ion-label>
-                <ion-spinner *ngIf="loading"></ion-spinner> Registrar Salida
-              </ion-label>
-            </ion-button>
-          </ion-toolbar>
+          <ion-button (click)="sendDataExit()" [disabled]="loadingExit || !scanResult"
+            class="ion-margin-vertical custom-button rounded" color="primary" expand="block">
+            <ion-label>
+              <ion-spinner *ngIf="loadingExit"></ion-spinner> Registrar Salida
+            </ion-label>
+          </ion-button>
         </div>
 
       </ion-col>

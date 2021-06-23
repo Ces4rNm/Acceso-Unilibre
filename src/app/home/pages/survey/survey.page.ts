@@ -93,6 +93,7 @@ export class SurveyPage implements OnInit {
     //   ]
     // };
     this._appService.request('get', '/survey', {}).subscribe(data => {
+      this._appService.dismissLoading();
       if (data.valid) {
         data.print.preguntas = data.print.preguntas.map((item) => {
           if (item.tipo == 2) {
@@ -110,8 +111,7 @@ export class SurveyPage implements OnInit {
         console.log(this.survey);
       } else {
         this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
-      }
-      this._appService.dismissLoading();
+      }      
     });
   }
 

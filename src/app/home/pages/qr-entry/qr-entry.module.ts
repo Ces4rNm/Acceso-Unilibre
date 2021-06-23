@@ -8,12 +8,17 @@ import { QrEntryPageRoutingModule } from './qr-entry-routing.module';
 
 import { QrEntryPage } from './qr-entry.page';
 
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    QrEntryPageRoutingModule
+    QrEntryPageRoutingModule,
+    NgxQRCodeModule,
+    SharedModule
   ],
   declarations: [QrEntryPage]
 })

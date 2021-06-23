@@ -19,23 +19,24 @@
             maxlength="50" placeholder="Documento o Correo" required></ion-input>
 
           <div class="custom-input-icon ion-margin-bottom">
-            <ion-input name="password" [(ngModel)]="password" type="text" minlength="3" maxlength="50"
+            <ion-input name="password" #inputPass [(ngModel)]="password" type="password" minlength="3" maxlength="50"
               placeholder="Contraseña" required>
             </ion-input>
             <ion-icon (click)="inputPass.type=(inputPass.type=='password')?'text':'password'" class="cursor-pointer"
-              name="eye" color="primary" slot="end"></ion-icon>
+              [name]="(inputPass.type=='password')?'eye':'eye-off'" slot="end"></ion-icon>
           </div>
 
           <div class="options ion-margin-vertical ion-padding-bottom">
-            <ion-text [routerLink]="['/password']" color="medium" class="ion-float-start">
+            <ion-text [routerLink]="['/password']" color="medium" class="ion-float-start cursor-pointer">
               ¿Olvidaste tu contraseña?
             </ion-text>
-            <ion-text [routerLink]="['/register']" color="primary" class="ion-float-end">
+            <ion-text [routerLink]="['/register']" color="primary" class="ion-float-end cursor-pointer">
               Registrarme
             </ion-text>
           </div>
 
-          <ion-button type="submit" class="ion-margin-vertical custom-button rounded" color="primary" expand="block" [disabled]="loading">
+          <ion-button type="submit" class="ion-margin-vertical custom-button rounded" color="primary" expand="block"
+            [disabled]="loading">
             <ion-label>
               <ion-spinner *ngIf="loading"></ion-spinner> Iniciar sesión
             </ion-label>

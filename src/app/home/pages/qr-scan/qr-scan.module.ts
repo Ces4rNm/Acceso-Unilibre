@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { QrScanPageRoutingModule } from './qr-scan-routing.module';
 
 import { QrScanPage } from './qr-scan.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    QrScanPageRoutingModule
+    QrScanPageRoutingModule,
+    SharedModule
   ],
   declarations: [QrScanPage]
 })

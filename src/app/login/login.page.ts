@@ -32,8 +32,8 @@ export class LoginPage implements OnInit {
         this.loading = true;
         this._appService.request('post', '/login', body).subscribe(data => {
           if (data.valid) {
-            this._appService.session = data.print;
             let session = data.print;
+            this._appService.session = Object.assign(session, { nombre: 'Cesar Nuñez' });
             if (session.hasOwnProperty('rol')) {
               this._router.navigate(['/home']);
             } else {

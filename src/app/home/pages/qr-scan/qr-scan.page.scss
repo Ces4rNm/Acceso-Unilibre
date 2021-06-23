@@ -3,28 +3,62 @@
     &>ion-row {
       &>ion-col {
         &.scan {
-
-
+        
           .section-1 {
             background-color: #E1E6EF;
             position: relative;
 
             #code_qr {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              position: relative;
+              min-height: 30vh;
+              max-height: 60vh;
+              overflow: hidden;
+
+              &.disabled::after {
+                position: absolute;
+                content: "";
+                height: 100%;
+                width: 100%;
+                background: #ffffffcc;
+              }
+
               ion-icon {
-                font-size: 180px;
-                border: 15px solid #1ae49b;
-                margin: 50px 0;
+                color: black !important;
+                position: absolute;
+                font-size: 100px;
+                z-index: 1;
               }
             }
 
             #inf {
               position: absolute;
               bottom: 10px;
-              left: var(--ion-padding, 16px);
+              left: 50%;
+              transform: translateX(-50%);
 
               ion-chip {
                 --border-radius: 5px;
                 border-radius: 5px;
+                padding: 20px;
+                border: 2px solid #222428 !important;
+
+                &.user-success {
+                  background: var(--ion-color-success) !important;
+                  color: black !important;
+                }
+
+                &.user-warning {
+                  background: var(--ion-color-warning) !important;
+                  color: black !important;
+                }
+
+                &.user-danger {
+                  background: var(--ion-color-danger) !important;
+                  color: white !important;
+                }
               }
             }
           }

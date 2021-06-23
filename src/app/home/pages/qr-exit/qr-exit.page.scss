@@ -3,15 +3,29 @@
     &>ion-row {
       &>ion-col {
         &.scan {
-          background-color: #E1E6EF;
 
           .section-1 {
-            #code_qr {
-              ion-icon {
-                font-size: 180px;
-                border: 15px solid #1ae49b;
-                margin: 50px 0;
-              }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 30vh;
+            max-height: 60vh;
+            overflow: hidden;
+
+            &.disabled::after {
+              position: absolute;
+              content: "";
+              height: 100%;
+              width: 100%;
+              background: #ffffffcc;
+            }
+
+            ion-icon {
+              color: black !important;
+              position: absolute;
+              font-size: 100px;
+              z-index: 1;
             }
           }
 

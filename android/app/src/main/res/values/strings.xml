@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Unilibre-CovidApp</string>
+    <string name="title_activity_main">Unilibre-CovidApp</string>
+    <string name="package_name">com.unilibre.app</string>
+    <string name="custom_url_scheme">com.unilibre.app</string>
+</resources>

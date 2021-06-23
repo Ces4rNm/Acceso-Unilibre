@@ -2,64 +2,81 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-back-button defaultHref="home" (click)="stopScan()"></ion-back-button>
     </ion-buttons>
     <ion-title>Escanear QR</ion-title>
     <ion-buttons slot="primary">
-      <ion-button color="dark" class="button button-clear">
-        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      <ion-button (click)="resetScan();startScan();" *ngIf="scanResult || scanResult==''" color="dark"
+        class="button button-clear">
+        <ion-icon slot="icon-only" name="reload-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="main-content" color="light">
+<ion-content id="main-content" class="bg-light-b">
   <ion-grid class="ion-no-padding h-100">
 
     <ion-row class="ion-justify-content-center ion-align-items-center ion-no-padding">
-      <ion-col color="white" size="12" size-xL="4" size-lg="6" size-md="10" class="ion-text-center ion-no-padding scan">
+      <ion-col size="12" size-xL="4" size-lg="6" size-md="10" class="ion-text-center ion-no-padding scan">
 
         <div class="section-1">
-          <div id="code_qr" class="ion-padding-vertical">
-            <ion-icon slot="end" name="qr-code-outline"></ion-icon>
+          <div id="code_qr" [ngClass]="{'disabled': !scanActive}">
+            <video #video width="100%"></video>
+            <canvas #canvas hidden></canvas>
+            <ion-icon *ngIf="scanResult" name="qr-code"></ion-icon>
+            <ion-icon *ngIf="scanResult==''" name="sad"></ion-icon>
           </div>
-          <div id="inf" class="ion-text-left">
-            <ion-chip color="success" (click)="showDetail()">
-              <ion-avatar>
+          <div *ngIf="scanResult && result.documento" id="inf" class="ion-text-left">
+            <ion-chip color="light" class="ion-text-center cursor-auto {{scanResult.survey.t | typeAlert}}">
+              <!-- <ion-avatar>
                 <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg">
-              </ion-avatar>
+              </ion-avatar> -->
               <ion-label class="bold">
-                Cesar Nuñez Mariño
+                {{result.nombre}}
                 <br>
                 <small>
-                cc: xxxxxxxxxx
+                  cc: {{result.documento}}
                 </small>
               </ion-label>
             </ion-chip>
           </div>
         </div>
 
-        <div class="section-2">
-          <ion-toolbar id="desc" color="grey" class="ion-padding-horizontal ion-text-left">
-            <ion-label>Valido hasta: 07/05/2021 6:45</ion-label>
-          </ion-toolbar>
+        <ion-toolbar *ngIf="scanResult" id="desc" color="medium" class="ion-padding-horizontal ion-text-center">
+          <ion-label>{{result.fecha}}</ion-label>
+        </ion-toolbar>
+
+        <div *ngIf="!scanResult" class="section-2 ion-padding">
+          <ion-text>
+            <p class="ion-margin-bottom ion-text-left">
+              Evita el contacto directo al escanear codigos QR, realiza el uso correcto de la mascarilla y el lavado
+              de manos constantemente.
+            </p>
+          </ion-text>
         </div>
 
-        <div class="section-3 ion-padding-horizontal">
-          <div id="options" class="ion-align-items-center ion-justify-content-between ion-padding-vertical">
-            <ion-button color="danger" class="custom-button rounded ion-margin">
+        <div *ngIf="scanResult && result.analisis" class="section-3 ion-padding">
+          <p class="ion-text-left">
+            Análisis de la encuesta:
+            <br>
+            <br>
+            {{result.analisis}}
+          </p>
+          <div id="options" class="ion-align-items-center ion-justify-content-between">
+            <ion-button (click)="sendDataEntry(2)" color="danger" class="custom-button rounded ion-margin">
               <ion-icon slot="icon-only" class="icon-only" name="nuclear"></ion-icon>
             </ion-button>
-            <ion-button color="warning" class="custom-button rounded ion-margin">
+            <ion-button (click)="sendDataEntry(1)" color="warning" class="custom-button rounded ion-margin">
               <ion-icon slot="icon-only" class="icon-only" name="warning"></ion-icon>
             </ion-button>
-            <ion-button color="success" class="custom-button rounded ion-margin">
+            <ion-button (click)="sendDataEntry(0)" color="success" class="custom-button rounded ion-margin">
               <ion-icon slot="icon-only" class="icon-only" name="shield-checkmark"></ion-icon>
             </ion-button>
           </div>
-          <ion-textarea name="nota" [(ngModel)]="nota" class="custom-input ion-margin-bottom ion-text-left" type="text"
-            minlength="3" maxlength="50" placeholder="Nota o estado del usuario." required></ion-textarea>
+          <ion-textarea name="nota" [(ngModel)]="result.nota" class="custom-input ion-margin-bottom ion-text-left"
+            type="text" minlength="3" maxlength="50" placeholder="Nota o estado del usuario." required></ion-textarea>
         </div>
 
       </ion-col>

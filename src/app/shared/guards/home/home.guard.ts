@@ -10,7 +10,6 @@ export class HomeGuard implements CanActivate {
   constructor(private _router: Router, private _appService: AppService) { }
 
   canActivate() {
-    console.log('HomeGuard');
     try {
       const session = this._appService.session;
       if (session) {

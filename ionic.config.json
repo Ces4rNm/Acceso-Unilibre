@@ -1,5 +1,7 @@
 {
   "name": "Unilibre-CovidApp",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

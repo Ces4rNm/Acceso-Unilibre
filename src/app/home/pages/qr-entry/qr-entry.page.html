@@ -9,8 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="main-content" color="light">
-  <ion-grid class="ion-no-padding h-100 bg-light-b">
+<ion-content id="main-content" class="bg-light-b">
+  <ion-grid class="ion-no-padding h-100">
 
     <ion-row class="ion-justify-content-center ion-align-items-center ion-no-padding">
       <ion-col size="12" size-xL="4" size-lg="6" size-md="10" class="ion-text-center ion-no-padding">
@@ -18,42 +18,42 @@
         <div class="section-1">
           <ion-text color="dark" class="ion-padding-horizontal">
             <h5>
-              Cesar Nuñez
+              {{_appService.session.nombre}}
               <br>
               <small>
-                cc: xxxxxxxxxx
+                cc: {{_appService.session.documento}}
               </small>
             </h5>
           </ion-text>
           <div id="code_qr">
-            <ion-icon slot="end" name="qr-code-outline"></ion-icon>
+            <ngx-qrcode *ngIf="createCode" [value]="createCode" cssClass="qr-content qr-success"></ngx-qrcode>
+            <!-- <ion-icon slot="end" name="qr-code-outline"></ion-icon> -->
           </div>
           <ion-text color="dark">
             <p class="ion-padding-vertical">
               Este codigo es valido hasta:
               <br>
-              07/05/2021 6:45
+              {{_appService.session.fecha_encuesta | formatDate : 3}}
             </p>
           </ion-text>
         </div>
 
-        <div class="section-2">
-          <ion-toolbar class="ion-text-justify ion-no-padding ion-padding">
-            <ion-button (click)="showDetail()" color="primary" class="ion-margin-bottom custom-button rounded" expand="block">
-              Ver descripción
-            </ion-button>
-            <ion-text color="medium">
-              <p class="ion-margin-bottom">
-                Evita el contacto directo al presentar este codigo, realiza el uso correcto de la mascarilla y el lavado
-                de manos constantemente.
-              </p>
-            </ion-text>
-            <ion-text color="oro">
-              <small class="small">
-                Este código QR se genero basado en la información proporcionada en la ultima encuesta.
-              </small>
-            </ion-text>
-          </ion-toolbar>
+        <div class="section-2 ion-text-justify ion-padding">
+          <ion-button (click)="showDetail()" color="primary" class="ion-margin-bottom custom-button rounded"
+            expand="block">
+            Análisis de encuesta
+          </ion-button>
+          <ion-text color="medium">
+            <p class="ion-margin-bottom">
+              Evita el contacto directo al presentar este codigo, realiza el uso correcto de la mascarilla y el lavado
+              de manos constantemente.
+            </p>
+          </ion-text>
+          <ion-text color="oro">
+            <small class="small">
+              Este código QR se genero basado en la información proporcionada en la ultima encuesta.
+            </small>
+          </ion-text>
         </div>
 
       </ion-col>

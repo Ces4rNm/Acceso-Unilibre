@@ -21,7 +21,12 @@ export class TourtPage implements OnInit {
 
   }
 
-  ionViewWillEnter() {}
+  ionViewWillEnter() {
+    this.slideOpts = {
+      initialSlide: 0,
+      speed: 400,
+    };
+  }
 
   slideChanged(slides) {
     slides.getActiveIndex().then(index => {
@@ -33,6 +38,10 @@ export class TourtPage implements OnInit {
   next(slides) {
     slides.isEnd().then(response => {
       if (response) {
+        this.slideOpts = {
+          initialSlide: 0,
+          speed: 400,
+        };
         this._router.navigate(['login']);
       };
     });

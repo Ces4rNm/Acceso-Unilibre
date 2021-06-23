@@ -29,6 +29,7 @@ export class AppService {
 
   // All request
   request(method: string, serviceName: string, body: any) {
+    console.log("🚩", method, serviceName, body)
     return this._http[method](environment.serverUrl + serviceName, body, this.getHeaders()).pipe(
       map((response: any) => {
         console.log("response", response);
@@ -73,7 +74,7 @@ export class AppService {
       subHeader: subHeader,
       message: message,
       buttons: [{ text: buttons, cssClass: cssClassbuttons }],
-      backdropDismiss:  false
+      backdropDismiss: false
     });
 
     await this.alert.create.present();

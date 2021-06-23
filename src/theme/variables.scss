@@ -165,19 +165,23 @@ $colors-class: ("primary":--ion-color-primary,
 $color in $colors-class {
   .bg-#{$name} {
     background: var($color) !important;
+    --background: var($color) !important;
   }
 
   .color-#{$name} {
     color: var($color) !important;
+    --color: var($color) !important;
   }
 }
 
 .bg-light-b {
   background: #E6E6E6;
+  --background: #E6E6E6;
 }
 
 .color-light-b {
   color: #E6E6E6;
+  --color: #E6E6E6;
 }
 
 ion-input.custom-input,
@@ -228,6 +232,8 @@ ion-button.custom-button {
   --border-style: solid;
   --border-color: #222428;
   --border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
 
   ion-label {
     display: contents;
@@ -248,8 +254,8 @@ ion-button.custom-button {
 }
 
 .rounded {
-  --border-radius: 5px!important;
-  border-radius: 5px!important;
+  --border-radius: 5px !important;
+  border-radius: 5px !important;
 }
 
 .square {
@@ -501,10 +507,23 @@ ion-button.custom-button {
 
   .bg-light-b {
     background: #222428;
+    --background: #222428;
   }
 
   .color-light-b {
     color: #222428;
+    --color: #222428;
+  }
+
+  ion-input.custom-input,
+  ion-textarea.custom-input,
+  .custom-input-icon {
+    --background: #ffffff2e !important;
+    background: #ffffff2e !important;
+    --placeholder-color: #f4f5f8;
+    --placeholder-opacity: 0.5;
+    color: white;
+    border: 2px solid #e9e9e9a3;
   }
 
   .alert-wrapper {
@@ -512,6 +531,7 @@ ion-button.custom-button {
       color: white;
     }
   }
+
 }
 
 

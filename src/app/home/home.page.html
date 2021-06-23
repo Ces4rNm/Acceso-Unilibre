@@ -44,7 +44,7 @@
 
         <ion-text color="oro" class="ion-text-center">
           <h1 id="user" class="ion-margin-bottom ion-no-margin">
-            Cesar Nuñez
+            {{_appService.session.nombre}}
             <ion-buttons>
               <ion-button routerLink="/home/update-data" class="button button-clear">
                 <ion-icon color="medium" slot="icon-only" name="create"></ion-icon>
@@ -61,7 +61,7 @@
 
         <ion-button routerLink="/home/survey" class="ion-margin-vertical custom-button rounded" color="primary" expand="block">
           <ion-label>
-            <ion-spinner *ngIf="loading"></ion-spinner> Reportar encuesta
+            Reportar encuesta
           </ion-label>
         </ion-button>
 
