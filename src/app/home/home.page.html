@@ -54,12 +54,19 @@
         </ion-text>
 
         <ion-text color="medium" class="ion-text-left">
-          Tu ultima encuesta reporta en la universidad fue:
-          <br>
-          {{_appService.session.fecha_encuesta | formatDate : 1}}
+          <ng-container *ngIf="_appService.session.fecha_encuesta; else elseTemplate">
+            Tu ultima encuesta reporta en la universidad fue:
+            <br>
+            {{_appService.session.fecha_encuesta | formatDate : 1}}
+          </ng-container>
+          <ng-template #elseTemplate>
+            No has reportado tu encuesta en la universidad, por favor ingrese a la opción siguiente:
+            <br>
+          </ng-template>
         </ion-text>
 
-        <ion-button routerLink="/home/survey" class="ion-margin-vertical custom-button rounded" color="primary" expand="block">
+        <ion-button routerLink="/home/survey" class="ion-margin-vertical custom-button rounded" color="primary"
+          expand="block">
           <ion-label>
             Reportar encuesta
           </ion-label>

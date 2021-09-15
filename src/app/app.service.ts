@@ -34,9 +34,9 @@ export class AppService {
       map((response: any) => {
         console.log("response", response);
         // Validar datos
-        let valData = this.valData(0, { x: response });
+        let valData = this.valData(0, response);
         if (valData.is) {
-          return { valid: true, print: response };
+          return { valid: true, print: response.data };
         } else {
           return { valid: false, print: valData.msg };
         }
@@ -118,24 +118,26 @@ export class AppService {
     return true;
   }
 
-  isError(resData: any, errorName: string): any {
+  isError(resData: any): any {
     // Validar datos de JSON, Error...
     if (this.isJsonString(JSON.stringify(resData))) {
       if (resData == null || resData == undefined) {
-        return { is: false, msg: 'Answer with error' };
-      } else if (resData instanceof Array) {
-        return { is: true, msg: 'Ok Array' };
+        return { is: false, msg: 'Respond with null or undefined' };
       } else if (resData.hasOwnProperty('codigo')) {
-        if (resData.codigo != 0) {
-          return { is: false, msg: resData.msg };
+        if (resData.codigo > 0) {
+          if (resData.hasOwnProperty('data')) {
+            return { is: true, msg: 'Ok Value' };
+          } else {
+            return { is: false, msg: 'Response does not contain the [data] property' };
+          }
         } else {
-          return { is: true, msg: 'Ok Value' };
+          return { is: false, msg: resData.msg };
         }
       } else {
-        return { is: true, msg: 'Ok Value' };
+        return { is: false, msg: 'Response does not contain the [codigo] property' };
       }
     } else {
-      return { is: false, msg: 'Invalid json response' };
+      return { is: false, msg: 'Response does not contain a valid json' };
     }
   }
 
@@ -143,9 +145,7 @@ export class AppService {
     switch (type) {
       case 0:
         // Default
-        return this.isError(params.x, 'Error');
-      case 1:
-        return this.isError(params.x, params.y);
+        return this.isError(params);
       default:
         return {
           is: false,

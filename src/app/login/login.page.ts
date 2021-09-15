@@ -10,8 +10,8 @@ import { AppService } from '../app.service';
 })
 export class LoginPage implements OnInit {
 
-  email: string = "1001";
-  password: string = "123";
+  email: string = "user@mail.com";
+  password: string = "abc";
 
   loading: boolean;
 
@@ -26,14 +26,17 @@ export class LoginPage implements OnInit {
     if (data.form.status == 'VALID') {
       if (data.form.value.email && data.form.value.password) {
         let body = {
-          documento: data.form.value.email,
+          correo: data.form.value.email,
           clave: data.form.value.password
         }
         this.loading = true;
         this._appService.request('post', '/login', body).subscribe(data => {
           if (data.valid) {
             let session = data.print;
-            this._appService.session = Object.assign(session, { nombre: 'Cesar Nuñez' });
+            if (session.hasOwnProperty('fecha_encuesta')) {
+              session = Object.assign(session, { fecha_encuesta: false })
+            }
+            this._appService.session = session;
             if (session.hasOwnProperty('rol')) {
               this._router.navigate(['/home']);
             } else {

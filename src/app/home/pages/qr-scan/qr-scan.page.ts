@@ -156,7 +156,7 @@ export class QrScanPage {
             id_enfermera: this._appService.session.documento
           }
           this._appService.presentLoading('load-survey', 'circular', 'Cargando Analisis...', true, 0);
-          this._appService.request('post', '/record', body).subscribe(data => {
+          this._appService.request('get', '/record', body).subscribe(data => {
             this._appService.dismissLoading();
             if (data.valid) {
               this.result.analisis = data.print.analisis_encuesta;
