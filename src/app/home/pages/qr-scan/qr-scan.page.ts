@@ -156,7 +156,7 @@ export class QrScanPage {
             id_enfermera: this._appService.session.documento
           }
           this._appService.presentLoading('load-survey', 'circular', 'Cargando Analisis...', true, 0);
-          this._appService.request('get', '/record', body).subscribe(data => {
+          this._appService.request('get', '/record').subscribe(data => {
             this._appService.dismissLoading();
             if (data.valid) {
               this.result.analisis = data.print.analisis_encuesta;
@@ -187,7 +187,7 @@ export class QrScanPage {
           estado: estado,
           desc: this.result.nota
         }
-        this._appService.request('post', '/record', body).subscribe(data => {
+        this._appService.requestSendBody('post', '/record', body).subscribe(data => {
           if (data.valid) {
             this._appService.presentAlert('alert-success', null, data.print.msg, null, 'Aceptar');
             this.resetScan();

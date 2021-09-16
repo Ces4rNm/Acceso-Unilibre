@@ -21,14 +21,16 @@ export class AppService {
   ) { }
 
   getHeaders(): any {
+    const session = this.session;
     const headers = new HttpHeaders({
-      // 'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json',
+      'x-access-token': (session && session.hasOwnProperty('token')) ? session.token : ''
     });
-    return headers;
+    return { headers: headers };
   }
 
-  // All request
-  request(method: string, serviceName: string, body: any) {
+  // All request with body
+  requestSendBody(method: string, serviceName: string, body: any) {
     console.log("🚩", method, serviceName, body)
     return this._http[method](environment.serverUrl + serviceName, body, this.getHeaders()).pipe(
       map((response: any) => {
@@ -36,9 +38,26 @@ export class AppService {
         // Validar datos
         let valData = this.valData(0, response);
         if (valData.is) {
-          return { valid: true, print: response.data };
+          return { valid: true, print: response.data, codigo: response.codigo, msg: response.msg };
         } else {
-          return { valid: false, print: valData.msg };
+          return { valid: false, print: response, msg: valData.msg };
+        }
+      })
+    );
+  }
+
+  // All request without body
+  request(method: string, serviceName: string) {
+    console.log("🚩", method, serviceName)
+    return this._http[method](environment.serverUrl + serviceName, this.getHeaders()).pipe(
+      map((response: any) => {
+        console.log("response", response);
+        // Validar datos
+        let valData = this.valData(0, response);
+        if (valData.is) {
+          return { valid: true, print: response.data, codigo: response.codigo, msg: response.msg };
+        } else {
+          return { valid: false, print: response, msg: valData.msg };
         }
       })
     );

@@ -30,12 +30,9 @@ export class LoginPage implements OnInit {
           clave: data.form.value.password
         }
         this.loading = true;
-        this._appService.request('post', '/login', body).subscribe(data => {
+        this._appService.requestSendBody('post', '/login', body).subscribe(data => {
           if (data.valid) {
             let session = data.print;
-            if (session.hasOwnProperty('fecha_encuesta')) {
-              session = Object.assign(session, { fecha_encuesta: false })
-            }
             this._appService.session = session;
             if (session.hasOwnProperty('rol')) {
               this._router.navigate(['/home']);

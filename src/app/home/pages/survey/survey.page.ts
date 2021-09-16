@@ -92,7 +92,7 @@ export class SurveyPage implements OnInit {
     //     }
     //   ]
     // };
-    this._appService.request('get', '/survey', {}).subscribe(data => {
+    this._appService.request('get', '/survey').subscribe(data => {
       this._appService.dismissLoading();
       if (data.valid) {
         data.print.preguntas = data.print.preguntas.map((item) => {
@@ -108,10 +108,10 @@ export class SurveyPage implements OnInit {
           return item;
         });
         this.survey = data.print;
-        console.log(this.survey);
+        console.log('this.survey:', this.survey);
       } else {
         this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
-      }      
+      }
     });
   }
 
@@ -167,19 +167,16 @@ export class SurveyPage implements OnInit {
                 }
               })
             };
-            this._appService.request('post', '/survey', body).subscribe(data => {
+            this._appService.requestSendBody('post', '/survey', body).subscribe(data => {
               console.log(data);
               if (data.valid) {
-                if (data.print.codigo == 0) {
-                  let update = this._appService.session;
-                  update.fecha_encuesta = data.print.fecha_registro;
-                  this._appService.session = update;
-                  this._router.navigate(['/home']);
-                } else {
-                  this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
-                }
+                let update = this._appService.session;
+                update.fecha_encuesta = data.print.fecha_registro;
+                this._appService.session = update;
+                // this._appService.presentAlert('alert-success', null, data.msg, null, 'Aceptar');
+                this._router.navigate(['/home']);
               } else {
-                this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+                this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
               }
               this.loading = false;
             });

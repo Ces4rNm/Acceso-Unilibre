@@ -26,7 +26,7 @@
             </h5>
           </ion-text>
           <div id="code_qr">
-            <ngx-qrcode *ngIf="createCode" [value]="createCode" cssClass="qr-content qr-success"></ngx-qrcode>
+            <ngx-qrcode *ngIf="createCode" [value]="createCode" cssClass="qr-content {{typeSurveyClass}}"></ngx-qrcode>
             <!-- <ion-icon slot="end" name="qr-code-outline"></ion-icon> -->
           </div>
           <ion-text color="dark">

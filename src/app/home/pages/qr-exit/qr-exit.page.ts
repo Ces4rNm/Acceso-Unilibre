@@ -125,15 +125,15 @@ export class QrExitPage {
   }
 
   sendDataExit(): void {
-    if (this._appService.session.id_encuesta && this._appService.session.documento && this.scanResult) {
+    if (this._appService.session.id_registro && this._appService.session.documento && this.scanResult) {
       if (this.scanResult.hasOwnProperty('exit')) {
         let body = {
-          id_registro: this._appService.session.id_encuesta,
-          id_user: this._appService.session.id_encuesta,
+          id_registro: this._appService.session.id_registro,
+          id_user: this._appService.session.id_registro,
           id_sede: this.scanResult.c
         }
         this.loadingExit = true;
-        this._appService.request('post', '/exit', body).subscribe(data => {
+        this._appService.requestSendBody('post', '/exit', body).subscribe(data => {
           if (data.valid) {
             this._router.navigate(['/home']);
             this._appService.presentAlert('alert-success', null, data.print.msg, null, 'Aceptar');
