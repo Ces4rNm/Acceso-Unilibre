@@ -1,5 +1,5 @@
 <ion-list>
-  <ion-item *ngFor="let item of options" [routerLink]="item.url" [routerLinkActive]="['active']" (click)="closeMenu()" class="cursor-pointer">
+  <ion-item *ngFor="let item of _appService.options" [routerLink]="item.url" [routerLinkActive]="['active']" (click)="closeMenu()" class="cursor-pointer">
     <ion-label>{{item.name}}</ion-label>
     <ion-buttons slot="end">
       <ion-button>

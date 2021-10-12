@@ -125,23 +125,24 @@ export class QrExitPage {
   }
 
   sendDataExit(): void {
-    if (this._appService.session.id_registro && this._appService.session.documento && this.scanResult) {
+    if (this._appService.session.id_registro && this._appService.session.id && this.scanResult) {
       if (this.scanResult.hasOwnProperty('exit')) {
         let body = {
           id_registro: this._appService.session.id_registro,
-          id_user: this._appService.session.id_registro,
-          id_sede: this.scanResult.c
+          id_user: this._appService.session.id,
+          id_sede: this.scanResult.exit.c
         }
         this.loadingExit = true;
         this._appService.requestSendBody('post', '/exit', body).subscribe(data => {
-          if (data.valid) {
-            this._router.navigate(['/home']);
-            this._appService.presentAlert('alert-success', null, data.print.msg, null, 'Aceptar');
-          } else {
-            this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
-          }
           this.loadingExit = false;
           this.resetScan();
+          if (data.valid) {
+            this._router.navigate(['/home']);
+            this._appService.presentAlert('alert-success', null, data.msg, null, 'Aceptar');
+          } else {
+            this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
+            this.startScan();
+          }
         });
       } else {
         this._appService.presentAlert('alert-error', null, 'Datos escaneados invalidos, intentelo de nuevo', null, 'Aceptar');

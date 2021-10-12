@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
         }
         this._appService.session = Object.assign(this._appService.session, data_home);
       } else {
-        this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+        // this._appService.presentAlert('alert-error', null, '¡Ups! algo no salio bien, intentelo de nuevo mas tarde.', null, 'Aceptar');
       }
     });
   }

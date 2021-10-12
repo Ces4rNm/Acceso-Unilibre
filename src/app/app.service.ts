@@ -59,7 +59,8 @@ export class AppService {
         } else {
           return { valid: false, print: response, msg: valData.msg };
         }
-      })
+      }),
+      catchError(this.handleError<any>(serviceName, []))
     );
   }
 
@@ -76,10 +77,18 @@ export class AppService {
       return false;
     }
   }
-  public set session(value) {
-    localStorage.setItem('session', JSON.stringify(value));
-  }
 
+  options: Array<any> = [];
+  public set session(value: any) {
+    localStorage.setItem('session', JSON.stringify(value));
+    const { rol } = value;
+    if (rol >= 0 && environment.rolRoute && rol < environment.rolRoute.length) {
+      this.options = environment.rolRoute[rol];
+    } else {
+      localStorage.clear();
+      this._router.navigate(['/login']);
+    }
+  }
 
   // Alert
   alert: any = {
@@ -121,9 +130,11 @@ export class AppService {
     // console.log('Loading dismissed!', this.loading.role);
   }
 
-  async dismissLoading() {
+  dismissLoading() {
     if (this.loading) {
-      await this.loading.create.dismiss();
+      setTimeout(() => {
+        this.loading.create.dismiss();
+      }, 10);
     }
   }
 
@@ -174,19 +185,21 @@ export class AppService {
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.log(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+    return (response: any): Observable<T> => {
+      // TODO: send the response to remote logging infrastructure
+      // console.log(response); // log to console instead
+      const { error, status } = response;
+      if ((error.hasOwnProperty('codigo') && error.codigo == -3) || status == 403) {
+        this._router.navigate(['/login']);
+      }
+      // TODO: better job of transforming response for user consumption
+      this.log(`${operation} failed: ${response.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
   private log(message: string) {
-    // console.log(`ClassroomService: ${message}`);
+    // console.log(`AppService: ${message}`);
   }
 }

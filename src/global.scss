@@ -76,3 +76,11 @@ ngx-qrcode {
     }
   }
 }
+
+.single-select-alert {
+  --min-width: 320px;
+
+  .alert-radio-group {
+    max-height: 320px;
+  }
+}

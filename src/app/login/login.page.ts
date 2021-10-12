@@ -21,6 +21,10 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() { }
+  ionViewWillEnter() {
+    this.email = "user@mail.com";
+    this.password = "abc";
+  }
 
   login(data) {
     if (data.form.status == 'VALID') {
@@ -41,15 +45,15 @@ export class LoginPage implements OnInit {
             }
           } else {
             localStorage.clear();
-            this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+            this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
           }
           this.loading = false;
         });
       } else {
-        this._appService.presentAlert('alert-error', null, 'Datos vacios en las credenciales', 'Documento o Correo: <br> ' + data.form.value.email + ' <br> <br> Contraseña: <br> ' + data.form.value.password, 'Aceptar');
+        this._appService.presentAlert('alert-error', null, 'Datos vacios en las credenciales', null, 'Aceptar');
       }
     } else {
-      this._appService.presentAlert('alert-error', null, 'Datos vacios en las credenciales', 'Documento o Correo: <br> ' + data.form.value.email + ' <br> <br> Contraseña: <br> ' + data.form.value.password, 'Aceptar');
+      this._appService.presentAlert('alert-error', null, 'Datos invalidos en las credenciales', null, 'Aceptar');
     }
   }
 }

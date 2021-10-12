@@ -6,7 +6,7 @@
     </ion-buttons>
     <ion-title>Registrar Usuario</ion-title>
   </ion-toolbar>
-  
+
 </ion-header>
 
 <ion-content color="light" id="main-content">
@@ -37,8 +37,8 @@
               <!-- text -->
               <div *ngIf="pregunta.tipo==0">
                 <ion-item lines="full" class="ion-no-padding">
-                  <ion-textarea [(ngModel)]="pregunta.val" name="{{'textarea-'+i}}" [required]="pregunta.obligatorio"
-                    type="text" class="ion-margin-start" placeholder="Respuesta..."></ion-textarea>
+                  <ion-input [(ngModel)]="pregunta.val" name="{{'text-'+i}}" [required]="pregunta.obligatorio"
+                    [type]="pregunta.input" class="ion-margin-start" placeholder="Escribir..."></ion-input>
                 </ion-item>
               </div>
               <!-- radio -->
@@ -65,14 +65,16 @@
               </div>
               <!-- Select -->
               <div *ngIf="pregunta.tipo==3">
-                <ion-item>
-                  <ion-label>Select One</ion-label>
-                  <ion-select [(ngModel)]="pregunta.val" name="{{'select-'+i}}" [required]="pregunta.obligatorio">
-                    <ion-select-option *ngFor="let respuesta of pregunta.respuestas" [value]="respuesta.id">{{respuesta.texto}}</ion-select-option>
+                <ion-item lines="full">
+                  <ion-label style="display: none;">{{pregunta.titulo}}</ion-label>
+                  <ion-select [(ngModel)]="pregunta.val" name="{{'select-'+i}}" [required]="pregunta.obligatorio" class="ion-no-padding">
+                    <ion-select-option value="" disabled>Seleccionar</ion-select-option>
+                    <ion-select-option *ngFor="let respuesta of pregunta.respuestas" [value]="respuesta.id">
+                      {{respuesta.texto}}</ion-select-option>
                   </ion-select>
                 </ion-item>
               </div>
-              
+
             </ion-list>
           </ion-card>
 
@@ -80,8 +82,8 @@
             <p class="ion-padding-vertical">{{user.desc}}</p>
           </ion-text>
 
-          <ion-button type="submit" [disabled]="loading" class="ion-margin-vertical custom-button rounded" color="primary"
-            expand="block">
+          <ion-button type="submit" [disabled]="loading" class="ion-margin-vertical custom-button rounded"
+            color="primary" expand="block">
             <ion-label>
               <ion-spinner *ngIf="loading"></ion-spinner> Crear Usuario
             </ion-label>
@@ -93,4 +95,3 @@
     </ion-grid>
   </form>
 </ion-content>
-

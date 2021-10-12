@@ -16,8 +16,7 @@ export class QrEntryPage {
     private _router: Router,
     public _appService: AppService
   ) {
-    // id_registro
-    if (this._appService.session.id_registro && this._appService.session.fecha_encuesta && this._appService.session.analisis_encuesta.tipo && this._appService.session.id) {
+    if (this._appService.session.id_registro && this._appService.session.fecha_encuesta && this._appService.session.analisis_encuesta.tipo >= -1 && this._appService.session.id) {
       const structure = {
         survey: {
           d: this._appService.session.fecha_encuesta,// Date survey
@@ -34,10 +33,10 @@ export class QrEntryPage {
         case 1:
           this.typeSurveyClass = 'qr-success';
           break;
-        case 2:
+        case 0:
           this.typeSurveyClass = 'qr-warning';
           break;
-        case 3:
+        case -1:
           this.typeSurveyClass = 'qr-danger';
           break;
         default:

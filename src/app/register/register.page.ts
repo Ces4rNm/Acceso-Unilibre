@@ -13,55 +13,125 @@ export class RegisterPage implements OnInit {
 
   user: any = {
     id: 0,
-    titulo: 'El titulo del formulario.',
+    titulo: 'Ingrese los siguientes datos:',
     desc: 'Después de llenar los datos, al correo electrónico ingresado le llegaran las credenciales de acceso.',
     preguntas: [
+      // {
+      //   id: 1,
+      //   tipo: 3,
+      //   val: 'CC',
+      //   pro: 'tipo_documento',
+      //   titulo: "Tipo de documento:",
+      //   respuestas: [
+      //     { id: 'CC', texto: 'Cédula de ciudadanía' },
+      //     { id: 'TI', texto: 'Tarjeta de identidad' },
+      //     { id: 'NI', texto: 'NIT' },
+      //     { id: 'PA', texto: 'Pasaporte ' },
+      //     { id: 'TX', texto: 'Tipo de documento extranjero' },
+      //   ],
+      //   obligatorio: true,
+      // },
       {
-        id: 0,
+        id: 2,
         tipo: 0,
-        val: '',
-        titulo: "Nombres:",
-        respuestas: '',
-        obligatorio: true,
-      },
-      {
-        id: 0,
-        tipo: 0,
-        val: '',
-        titulo: "Apellidos:",
-        respuestas: '',
-        obligatorio: true,
-      },
-      {
-        id: 0,
-        tipo: 3,
-        val: '',
-        titulo: "Tipo de documento:",
-        respuestas: [
-          { id: 1, texto: 'CC' },
-          { id: 2, texto: 'TI' },
-        ],
-        obligatorio: true,
-      },
-      {
-        id: 0,
-        tipo: 0,
-        val: '',
+        val: '1143461706',
+        pro: 'documento',
+        input: 'number',
         titulo: "Documento:",
         respuestas: '',
         obligatorio: true,
       },
       {
-        id: 0,
-        tipo: 3,
-        val: '',
-        titulo: "Genero:",
-        respuestas: [
-          { id: 1, texto: 'Masculino' },
-          { id: 2, texto: 'Femenino' },
-          { id: 3, texto: 'Otro' },
-        ],
+        id: 3,
+        tipo: 0,
+        val: 'Cesar',
+        pro: 'nombre',
+        input: 'text',
+        titulo: "Nombre:",
+        respuestas: '',
         obligatorio: true,
+      },
+      // {
+      //   id: 4,
+      //   tipo: 0,
+      //   val: 'Alejandro',
+      //   pro: 'nombre',
+      //   input: 'text',
+      //   titulo: "Segundo Nombre:",
+      //   respuestas: '',
+      //   obligatorio: false,
+      // },
+      {
+        id: 5,
+        tipo: 0,
+        val: 'Nuñez',
+        pro: 'apellido',
+        input: 'text',
+        titulo: "Apellido:",
+        respuestas: '',
+        obligatorio: true,
+      },
+      // {
+      //   id: 6,
+      //   tipo: 0,
+      //   val: 'Mariño',
+      //   pro: 'apellido',
+      //   input: 'text',
+      //   titulo: "Segundo Apellido:",
+      //   respuestas: '',
+      //   obligatorio: true,
+      // },
+      // {
+      //   id: 7,
+      //   tipo: 3,
+      //   val: '',
+      //   titulo: "Genero:",
+      //   respuestas: [
+      //     { id: 'M', texto: 'Masculino' },
+      //     { id: 'F', texto: 'Femenino' },
+      //     { id: 'O', texto: 'Otro' },
+      //   ],
+      //   obligatorio: true,
+      // },
+      {
+        id: 7,
+        tipo: 0,
+        val: '14151617',
+        pro: 'codigo_estudiante',
+        input: 'number',
+        titulo: "Código Estudiantil:",
+        respuestas: '',
+        obligatorio: false,
+      },
+      {
+        id: 8,
+        tipo: 0,
+        val: '3235932414',
+        pro: 'celular',
+        input: 'number',
+        titulo: "Numero Celular:",
+        respuestas: '',
+        obligatorio: true,
+      },
+      {
+        id: 9,
+        tipo: 0,
+        val: 'cs@gmail.com',
+        pro: 'correo',
+        input: 'email',
+        titulo: "Correro:",
+        respuestas: '',
+        obligatorio: false,
+      },
+      {
+        id: 10,
+        tipo: 0,
+        val: '123',
+        pro: 'clave',
+        input: 'password',
+        titulo: "Clave:",
+        respuestas: '',
+        obligatorio: false,
       },
       // {
       //   id: 2,
@@ -122,6 +192,7 @@ export class RegisterPage implements OnInit {
                 error.push('La respuesta #' + (parseInt(index) + 1) + ' no es valida');
               }
               break;
+            case 'select':
             case 'radio':
               if (value.toString().trim().length == 0) {
                 error.push('La respuesta #' + (parseInt(index) + 1) + ' esta vacía');
@@ -146,35 +217,34 @@ export class RegisterPage implements OnInit {
         if (data.form.status == 'VALID') {
           if (this.user && preguntas.length > 0) {
             this.loading = true;
-            let body = {
-              user_id: this._appService.session.id,
-              encuesta_id: this.user.id,
-              preguntas: preguntas.map((pregunta) => {
-                return {
-                  id: this.user.preguntas[pregunta.index].id,
-                  tipo: this.user.preguntas[pregunta.index].tipo,
-                  respuesta: (pregunta.value instanceof Array) ? pregunta.value.join(',') : pregunta.value
-                }
-              })
-            };
-            console.log(body);
-            this._router.navigate(['/login']);
-            // this._appService.request('post', '/survey', body).subscribe(data => {
-            //   console.log(data);
-            //   if (data.valid) {
-            //     if (data.print.codigo == 0) {
-            //       let update = this._appService.session;
-            //       update.fecha_encuesta = data.print.fecha_registro;
-            //       this._appService.session = update;
-            //       this._router.navigate(['/home']);
-            //     } else {
-            //       this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
-            //     }
-            //   } else {
-            //     this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
-            //   }
-            //   this.loading = false;
-            // });
+            let respuestas = preguntas.map((pregunta) => {
+              return {
+                [this.user.preguntas[pregunta.index].pro]: pregunta.value
+                // id: this.user.preguntas[pregunta.index].id,
+                // tipo: this.user.preguntas[pregunta.index].tipo,
+                // respuesta: (pregunta.value instanceof Array) ? pregunta.value.join(',') : pregunta.value
+              }
+            });
+            let body = {};
+            respuestas.forEach(element => {
+              let key = Object.keys(element)[0];
+              if (body.hasOwnProperty(key)) {
+                console.log('Object', key)
+                body[key] += ' ' + element[key];
+              } else {
+                body = Object.assign(body, element);
+              }
+            });;
+            this._appService.requestSendBody('post', '/signup', body).subscribe(data => {
+              debugger
+              if (data.valid) {
+                this._appService.presentAlert('alert-success', null, data.msg, null, 'Aceptar');
+                this._router.navigate(['/login']);
+              } else {
+                this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
+              }
+              this.loading = false;
+            });
           } else {
             this.loading = false;
           }
