@@ -45,15 +45,15 @@ export class LoginPage implements OnInit {
             }
           } else {
             localStorage.clear();
-            this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
+            this._appService.ionAlert('alert-error', null, data.msg, null, 'Aceptar');
           }
           this.loading = false;
         });
       } else {
-        this._appService.presentAlert('alert-error', null, 'Datos vacios en las credenciales', null, 'Aceptar');
+        this._appService.ionAlert('alert-error', null, 'Datos vacios en las credenciales', null, 'Aceptar');
       }
     } else {
-      this._appService.presentAlert('alert-error', null, 'Datos invalidos en las credenciales', null, 'Aceptar');
+      this._appService.ionAlert('alert-error', null, 'Datos invalidos en las credenciales', null, 'Aceptar');
     }
   }
 }

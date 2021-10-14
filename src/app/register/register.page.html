@@ -20,15 +20,15 @@
             <h4>{{user.titulo}}</h4>
           </ion-text>
 
-          <ion-card *ngFor="let pregunta of user.preguntas;let i = index" class="ion-margin-bottom ion-no-margin">
+          <ion-card *ngFor="let pregunta of user.preguntas;let i = index" class="ion-margin-bottom ion-no-margin bg-light">
             <!-- <ion-img src="https://ionicframework.com/docs/demos/api/card/madison.jpg"></ion-img> -->
-            <ion-list>
+            <ion-list class="bg-light">
               <ion-list-header class="ion-no-padding">
                 <ion-text color="oro" class="ion-text-left ion-padding-horizontal">
                   <ion-text color="tertiary" class="ion-text-left">
                     <small part="small" class="bold">
                       [{{i+1}}/{{user.preguntas.length}}]
-                      {{(pregunta.obligatorio)?'- obligatorio*':''}}
+                      {{(pregunta.obligatorio)?'- obligatorio*':'opcional'}}
                     </small>
                   </ion-text>
                   <h5>{{pregunta.titulo}}</h5>

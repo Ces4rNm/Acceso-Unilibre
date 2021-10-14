@@ -168,10 +168,10 @@ export class UpdateDataPage implements OnInit {
             //       this._appService.session = update;
             //       this._router.navigate(['/home']);
             //     } else {
-            //       this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+            //       this._appService.ionAlert('alert-error', null, data.print, null, 'Aceptar');
             //     }
             //   } else {
-            //     this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+            //     this._appService.ionAlert('alert-error', null, data.print, null, 'Aceptar');
             //   }
             //   this.loading = false;
             // });
@@ -179,7 +179,7 @@ export class UpdateDataPage implements OnInit {
             this.loading = false;
           }
         } else {
-          this._appService.presentAlert(
+          this._appService.ionAlert(
             'alert-error',
             null,
             'Encuesta invalida',
@@ -188,7 +188,7 @@ export class UpdateDataPage implements OnInit {
           );
         }
       } else {
-        this._appService.presentAlert(
+        this._appService.ionAlert(
           'alert-error',
           null,
           'Encuesta invalida:',
@@ -197,7 +197,7 @@ export class UpdateDataPage implements OnInit {
         );
       }
     } else {
-      this._appService.presentAlert(
+      this._appService.ionAlert(
         'alert-error',
         null,
         'Encuesta invalida',

@@ -11,26 +11,11 @@ export class HomeGuard implements CanActivate {
 
   canActivate() {
     try {
-      const session = this._appService.session;
-      if (session) {
-        if (session.hasOwnProperty('rol')) {
-          switch (session.rol) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-              return true;
-              break;
-            default:
-              return this._router.navigateByUrl('/login');
-              break;
-          }
-        } else {
-          return this._router.navigateByUrl('/login');
-        }
-      } else {
-        return this._router.navigateByUrl('/login');
+      const { rol } = this._appService.session;
+      if (rol >= 0) {
+        return true;
       }
+      return this._router.navigateByUrl('/login');
     } catch (error) {
       console.log('guard home error:', error);
       return this._router.navigateByUrl('/login');

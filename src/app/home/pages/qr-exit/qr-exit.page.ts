@@ -104,12 +104,12 @@ export class QrExitPage {
               track.stop();
             });
           } else {
-            this._appService.presentAlert('alert-error', null, 'Datos escaneados invalidos, vuelve a intentarlo', null, 'Aceptar');
+            this._appService.ionAlert('alert-error', null, 'Datos escaneados invalidos, vuelve a intentarlo', null, 'Aceptar');
             // this.stopScan();
             this.scanResult = '';
           }
         } else {
-          this._appService.presentAlert('alert-error', null, 'Datos invalidos, vuelve a intentarlo', null, 'Aceptar');
+          this._appService.ionAlert('alert-error', null, 'Datos invalidos, vuelve a intentarlo', null, 'Aceptar');
           // this.stopScan();
           this.scanResult = '';
         }
@@ -138,18 +138,18 @@ export class QrExitPage {
           this.resetScan();
           if (data.valid) {
             this._router.navigate(['/home']);
-            this._appService.presentAlert('alert-success', null, data.msg, null, 'Aceptar');
+            this._appService.ionAlert('alert-success', null, data.msg, null, 'Aceptar');
           } else {
-            this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
+            this._appService.ionAlert('alert-error', null, data.msg, null, 'Aceptar');
             this.startScan();
           }
         });
       } else {
-        this._appService.presentAlert('alert-error', null, 'Datos escaneados invalidos, intentelo de nuevo', null, 'Aceptar');
+        this._appService.ionAlert('alert-error', null, 'Datos escaneados invalidos, intentelo de nuevo', null, 'Aceptar');
         this.resetScan();
       }
     } else {
-      this._appService.presentAlert('alert-error', null, 'Datos invalidos, intentelo de nuevo', null, 'Aceptar');
+      this._appService.ionAlert('alert-error', null, 'Datos invalidos, intentelo de nuevo', null, 'Aceptar');
       this.resetScan();
     }
   }

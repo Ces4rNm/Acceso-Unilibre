@@ -14,7 +14,7 @@ export class RegisterPage implements OnInit {
   user: any = {
     id: 0,
     titulo: 'Ingrese los siguientes datos:',
-    desc: 'Después de llenar los datos, al correo electrónico ingresado le llegaran las credenciales de acceso.',
+    desc: 'Confirma tus datos y presiona el siguiente botón para continuar con el registro de tu usuario.',
     preguntas: [
       // {
       //   id: 1,
@@ -34,7 +34,7 @@ export class RegisterPage implements OnInit {
       {
         id: 2,
         tipo: 0,
-        val: '1143461706',
+        val: '',
         pro: 'documento',
         input: 'number',
         titulo: "Documento:",
@@ -44,7 +44,7 @@ export class RegisterPage implements OnInit {
       {
         id: 3,
         tipo: 0,
-        val: 'Cesar',
+        val: '',
         pro: 'nombre',
         input: 'text',
         titulo: "Nombre:",
@@ -64,7 +64,7 @@ export class RegisterPage implements OnInit {
       {
         id: 5,
         tipo: 0,
-        val: 'Nuñez',
+        val: '',
         pro: 'apellido',
         input: 'text',
         titulo: "Apellido:",
@@ -96,7 +96,7 @@ export class RegisterPage implements OnInit {
       {
         id: 7,
         tipo: 0,
-        val: '14151617',
+        val: '',
         pro: 'codigo_estudiante',
         input: 'number',
         titulo: "Código Estudiantil:",
@@ -106,7 +106,7 @@ export class RegisterPage implements OnInit {
       {
         id: 8,
         tipo: 0,
-        val: '3235932414',
+        val: '',
         pro: 'celular',
         input: 'number',
         titulo: "Numero Celular:",
@@ -116,22 +116,22 @@ export class RegisterPage implements OnInit {
       {
         id: 9,
         tipo: 0,
-        val: 'cs@gmail.com',
+        val: '',
         pro: 'correo',
         input: 'email',
         titulo: "Correro:",
         respuestas: '',
-        obligatorio: false,
+        obligatorio: true,
       },
       {
         id: 10,
         tipo: 0,
-        val: '123',
+        val: '',
         pro: 'clave',
         input: 'password',
         titulo: "Clave:",
         respuestas: '',
-        obligatorio: false,
+        obligatorio: true,
       },
       // {
       //   id: 2,
@@ -225,6 +225,7 @@ export class RegisterPage implements OnInit {
                 // respuesta: (pregunta.value instanceof Array) ? pregunta.value.join(',') : pregunta.value
               }
             });
+            const removeProperty = (propKey, { [propKey]: propValue, ...rest }) => rest;
             let body = {};
             respuestas.forEach(element => {
               let key = Object.keys(element)[0];
@@ -234,14 +235,16 @@ export class RegisterPage implements OnInit {
               } else {
                 body = Object.assign(body, element);
               }
-            });;
+              if (body.hasOwnProperty('codigo_estudiante') && body['codigo_estudiante'] == "") {
+                body = removeProperty('codigo_estudiante', body);
+              }
+            });
             this._appService.requestSendBody('post', '/signup', body).subscribe(data => {
-              debugger
               if (data.valid) {
-                this._appService.presentAlert('alert-success', null, data.msg, null, 'Aceptar');
+                this._appService.ionAlert('alert-success', null, data.msg, null, 'Aceptar');
                 this._router.navigate(['/login']);
               } else {
-                this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
+                this._appService.ionAlert('alert-error', null, data.msg, null, 'Aceptar');
               }
               this.loading = false;
             });
@@ -249,7 +252,7 @@ export class RegisterPage implements OnInit {
             this.loading = false;
           }
         } else {
-          this._appService.presentAlert(
+          this._appService.ionAlert(
             'alert-error',
             null,
             'Encuesta invalida',
@@ -258,7 +261,7 @@ export class RegisterPage implements OnInit {
           );
         }
       } else {
-        this._appService.presentAlert(
+        this._appService.ionAlert(
           'alert-error',
           null,
           'Encuesta invalida:',
@@ -267,7 +270,7 @@ export class RegisterPage implements OnInit {
         );
       }
     } else {
-      this._appService.presentAlert(
+      this._appService.ionAlert(
         'alert-error',
         null,
         'Encuesta invalida',

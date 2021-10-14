@@ -42,19 +42,19 @@ export class QrEntryPage {
         default:
           this.typeSurveyClass = 'qr-warning';
           this._router.navigate(['/login']);
-          this._appService.presentAlert('alert-error', null, 'Dato [analisis_encuesta.tipo] invalido', null, 'Aceptar');
+          this._appService.ionAlert('alert-error', null, 'Dato [analisis_encuesta.tipo] invalido', null, 'Aceptar');
           break;
       }
       this.createCode = JSON.stringify(structure);
     } else {
       this._router.navigate(['/login']);
-      this._appService.presentAlert('alert-error', null, 'Datos del usuario invalidos', null, 'Aceptar');
+      this._appService.ionAlert('alert-error', null, 'Datos del usuario invalidos', null, 'Aceptar');
     }
 
   }
 
   showDetail() {
-    this._appService.presentAlert(
+    this._appService.ionAlert(
       'alert-info min-w-30 text-left',
       null,
       'Resultados:',

@@ -41,7 +41,7 @@ export class QrScanPage {
 
   showDetail() {
     console.log("ok");
-    this._appService.presentAlert(
+    this._appService.ionAlert(
       'alert-info min-w-30 text-left',
       null,
       'Resultados:',
@@ -124,12 +124,12 @@ export class QrScanPage {
             this.scanResult = result;
             this.offAllCameras();
           } else {
-            this._appService.presentAlert('alert-error', null, 'Datos escaneados invalidos, vuelve a intentarlo', null, 'Aceptar');
+            this._appService.ionAlert('alert-error', null, 'Datos escaneados invalidos, vuelve a intentarlo', null, 'Aceptar');
             // this.stopScan();
             this.scanResult = '';
           }
         } else {
-          this._appService.presentAlert('alert-error', null, 'Datos invalidos, vuelve a intentarlo', null, 'Aceptar');
+          this._appService.ionAlert('alert-error', null, 'Datos invalidos, vuelve a intentarlo', null, 'Aceptar');
           // this.stopScan();
           this.scanResult = '';
         }
@@ -145,65 +145,76 @@ export class QrScanPage {
   }
 
   validDataCode(data): void {
-    if (data.survey.hasOwnProperty('d')) {
-      if (!this.formatDate(data.survey.d, 2)) {
-        if (data.survey.hasOwnProperty('c') && data.survey.c) {
-          this.result.nombre = data.survey.n;
-          this.result.documento = data.survey.i;
-          this.result.fecha = 'Valido hasta: ' + this.formatDate(data.survey.d, 3);
-          let body = {
-            id_registro: data.survey.c,
-            id_enfermera: this._appService.session.documento
-          }
-          this._appService.presentLoading('load-survey', 'circular', 'Cargando Analisis...', true, 0);
-          this._appService.request('get', '/record').subscribe(data => {
-            this._appService.dismissLoading();
+    const { d, c, t, n, i } = data.survey;
+    // d: Date survey
+    // c: Code survey
+    // t: Type survey
+    // n: Name user
+    // i: Id user
+    if (d) {
+      if (!this.formatDate(d, 2)) {
+        if (c) {
+          this.result.nombre = n;
+          this.result.documento = i;
+          this.result.fecha = 'Valido hasta: ' + this.formatDate(d, 3);
+          // this._appService.session.documento
+          this._appService.ionLoading('load-survey', 'circular', 'Cargando Analisis...', true, 0);
+          this._appService.request('get', '/record/' + c).subscribe(data => {
+            this._appService.dismiss();
             if (data.valid) {
-              this.result.analisis = data.print.analisis_encuesta;
+              const { analisis_encuesta } = data.print;
+              if (analisis_encuesta) {
+                this.result.analisis = analisis_encuesta.resultados;
+                this.scanResult.survey.t = analisis_encuesta.tipo;
+              } else {
+                this.result.analisis = '';
+                this._appService.ionAlert('alert-error', null, 'Error la respuesta no contiene el campo analisis_encuesta', null, 'Aceptar');
+              }
             } else {
-              this.result.analisis = 'No presenta síntomas ni factores de riesgo asociados al Covid-19.';
-              // this.result.analisis = '';
-              this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+              this.result.analisis = '';
+              this._appService.ionAlert('alert-error', null, data.msg, null, 'Aceptar');
             }
           });
         }
       } else {
-        this._appService.presentAlert('alert-error', null, 'El código QR está vencido, debe llenar la encuesta nuevamente.', 'Valido hasta: <br>' + this.formatDate(data.survey.d, 3), 'Aceptar');
-        this.result.fecha = 'QR vencido: ' + this.formatDate(data.survey.d,3);
+        this._appService.ionAlert('alert-error', null, 'El código QR está vencido, debe llenar la encuesta nuevamente.', 'Valido hasta: <br>' + this.formatDate(data.survey.d, 3), 'Aceptar');
+        this.result.fecha = 'QR vencido: ' + this.formatDate(data.survey.d, 3);
       }
     } else {
-      this._appService.presentAlert('alert-error', null, 'El código QR no tiene un formato valido, vuelve a intentarlo.', null, 'Aceptar');
+      this._appService.ionAlert('alert-error', null, 'El código QR no tiene un formato valido, vuelve a intentarlo.', null, 'Aceptar');
       this.result.fecha = 'Formato del QR invalido';
     }
   }
 
   sendDataEntry(estado) {
-    if (this.scanResult) {
-      if (this.scanResult.survey.hasOwnProperty('n')) {
+    const { survey } = this.scanResult;
+    if (survey) {
+      const { c } = survey;
+      // c: Code survey
+      if (c) {
         let body = {
-          id_registro: this.scanResult.survey.n,
-          id_enfermera: this._appService.session.documento,
-          id_sede: this._appService.session.sede || 1,
+          id_registro: c,
           estado: estado,
-          desc: this.result.nota
+          observacion: this.result.nota
         }
         this._appService.requestSendBody('post', '/record', body).subscribe(data => {
           if (data.valid) {
-            this._appService.presentAlert('alert-success', null, data.print.msg, null, 'Aceptar');
-            this.resetScan();
-            this.startScan();
+            this._appService.ionAlert('alert-success', null, data.msg, null, 'Aceptar');
           } else {
-            this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+            this._appService.ionAlert('alert-error', null, data.msg, null, 'Aceptar');
           }
           this.resetScan();
+          this.startScan();
         });
       } else {
-        this._appService.presentAlert('alert-error', null, 'Datos escaneados invalidos, intentelo de nuevo', null, 'Aceptar');
+        this._appService.ionAlert('alert-error', null, 'Datos escaneados invalidos, intentelo de nuevo', null, 'Aceptar');
         this.resetScan();
+        this.startScan();
       }
     } else {
-      this._appService.presentAlert('alert-error', null, 'Datos invalidos, intentelo de nuevo', null, 'Aceptar');
+      this._appService.ionAlert('alert-error', null, 'Datos invalidos, intentelo de nuevo', null, 'Aceptar');
       this.resetScan();
+      this.startScan();
     }
   }
 

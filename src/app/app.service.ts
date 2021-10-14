@@ -42,7 +42,8 @@ export class AppService {
         } else {
           return { valid: false, print: response, msg: valData.msg };
         }
-      })
+      }),
+      catchError(this.handleError<any>(serviceName, { valid: false }))
     );
   }
 
@@ -60,7 +61,7 @@ export class AppService {
           return { valid: false, print: response, msg: valData.msg };
         }
       }),
-      catchError(this.handleError<any>(serviceName, []))
+      catchError(this.handleError<any>(serviceName, { valid: false }))
     );
   }
 
@@ -81,6 +82,7 @@ export class AppService {
   options: Array<any> = [];
   public set session(value: any) {
     localStorage.setItem('session', JSON.stringify(value));
+    // Set sidebar options
     const { rol } = value;
     if (rol >= 0 && environment.rolRoute && rol < environment.rolRoute.length) {
       this.options = environment.rolRoute[rol];
@@ -91,51 +93,44 @@ export class AppService {
   }
 
   // Alert
-  alert: any = {
-    create: null,
-    role: null
-  }
-  async presentAlert(cssClass, header, subHeader, message, buttons, cssClassbuttons = '') {
-    this.alert.create = await this._alertController.create({
+  async ionAlert(cssClass, header, subHeader, message, buttons, cssClassbuttons = '') {
+    return await this._alertController.create({
       cssClass: cssClass,
       header: header,
       subHeader: subHeader,
       message: message,
       buttons: [{ text: buttons, cssClass: cssClassbuttons }],
       backdropDismiss: false
+    }).then(a => {
+      a.present().then(() => {
+        a.onDidDismiss();
+      });
     });
-
-    await this.alert.create.present();
-
-    this.alert.role = await this.alert.create.onDidDismiss();
-    // console.log('onDidDismiss resolved with role', this.alert.role);
   }
 
+
   // Loading
-  loading: any = {
-    create: null,
-    role: null
-  };
-  async presentLoading(cssClass, spinner, message, showBackdrop, duration = 0) {
-    this.loading.create = await this._loadingController.create({
+  isLoading = false;
+  async ionLoading(cssClass, spinner, message, showBackdrop, duration = 0) {
+    this.isLoading = true;
+    return await this._loadingController.create({
       cssClass: cssClass, // string | string[] | undefined
       spinner: spinner,// "bubbles" | "circles" | "circular" | "crescent" | "dots" | "lines" | "lines-small" | null | undefined
       message: message,// IonicSafeString | string | undefined
       showBackdrop: showBackdrop,// boolean
       duration: duration //number
+    }).then(l => {
+      l.present().then(() => {
+        if (!this.isLoading) {
+          l.dismiss();
+        }
+      });
     });
-    await this.loading.create.present();
-
-    this.loading.role = await this.loading.create.onDidDismiss();
-    // console.log('Loading dismissed!', this.loading.role);
   }
 
-  dismissLoading() {
-    if (this.loading) {
-      setTimeout(() => {
-        this.loading.create.dismiss();
-      }, 10);
-    }
+  async dismiss() {
+    this.isLoading = false;
+    return await this._loadingController.dismiss();
   }
 
   isJsonString(strJson: string): boolean {
@@ -189,8 +184,13 @@ export class AppService {
       // TODO: send the response to remote logging infrastructure
       // console.log(response); // log to console instead
       const { error, status } = response;
-      if ((error.hasOwnProperty('codigo') && error.codigo == -3) || status == 403) {
-        this._router.navigate(['/login']);
+      if (error) {
+        const { codigo, msg } = error;
+        if (codigo == -3 && status == 403) {
+          this._router.navigate(['/login']);
+        } else if (msg && (status == 500 || status == 400)) {
+          result = Object.assign(result, { msg: msg });
+        }
       }
       // TODO: better job of transforming response for user consumption
       this.log(`${operation} failed: ${response.message}`);

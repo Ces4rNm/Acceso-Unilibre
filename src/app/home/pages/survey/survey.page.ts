@@ -19,7 +19,7 @@ export class SurveyPage implements OnInit {
 
   ionViewWillEnter() {
     this.survey = null;
-    this._appService.presentLoading('load-survey', 'circular', 'Cargando...', true, 0);
+    this._appService.ionLoading('load-survey', 'circular', 'Cargando...', true, 0);
     // this.survey = {
     //   id: 0,
     //   titulo: 'El titulo de esta encuesta.',
@@ -93,7 +93,7 @@ export class SurveyPage implements OnInit {
     //   ]
     // };
     this._appService.request('get', '/survey').subscribe(data => {
-      this._appService.dismissLoading();
+      this._appService.dismiss();
       if (data.valid) {
         data.print.preguntas = data.print.preguntas.map((item) => {
           if (item.tipo == 2) {
@@ -110,7 +110,7 @@ export class SurveyPage implements OnInit {
         this.survey = data.print;
         console.log('this.survey:', this.survey);
       } else {
-        this._appService.presentAlert('alert-error', null, data.print, null, 'Aceptar');
+        this._appService.ionAlert('alert-error', null, data.msg, null, 'Aceptar');
       }
     });
   }
@@ -173,10 +173,10 @@ export class SurveyPage implements OnInit {
                 let update = this._appService.session;
                 update.fecha_encuesta = data.print.fecha_registro;
                 this._appService.session = update;
-                // this._appService.presentAlert('alert-success', null, data.msg, null, 'Aceptar');
+                // this._appService.ionAlert('alert-success', null, data.msg, null, 'Aceptar');
                 this._router.navigate(['/home']);
               } else {
-                this._appService.presentAlert('alert-error', null, data.msg, null, 'Aceptar');
+                this._appService.ionAlert('alert-error', null, data.msg, null, 'Aceptar');
               }
               this.loading = false;
             });
@@ -184,7 +184,7 @@ export class SurveyPage implements OnInit {
             this.loading = false;
           }
         } else {
-          this._appService.presentAlert(
+          this._appService.ionAlert(
             'alert-error',
             null,
             'Encuesta invalida',
@@ -193,7 +193,7 @@ export class SurveyPage implements OnInit {
           );
         }
       } else {
-        this._appService.presentAlert(
+        this._appService.ionAlert(
           'alert-error',
           null,
           'Encuesta invalida:',
@@ -202,7 +202,7 @@ export class SurveyPage implements OnInit {
         );
       }
     } else {
-      this._appService.presentAlert(
+      this._appService.ionAlert(
         'alert-error',
         null,
         'Encuesta invalida',

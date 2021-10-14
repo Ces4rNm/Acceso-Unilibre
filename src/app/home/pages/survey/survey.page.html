@@ -17,7 +17,7 @@
         <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-no-padding">
           <!-- Survey -->
           <ion-text color="dark" class="ion-text-justify bold">
-            <h4>{{survey.titulo}}</h4>
+            <h4>{{survey.nombre}}</h4>
           </ion-text>
 
           <ion-card *ngFor="let pregunta of survey.preguntas;let i = index" class="ion-margin-bottom ion-no-margin">
@@ -67,7 +67,7 @@
           </ion-card>
 
           <ion-text color="medium" class="ion-text-justify">
-            <p class="ion-padding-vertical">{{survey.desc}}</p>
+            <p class="ion-padding-vertical">{{survey.descripcion}}</p>
           </ion-text>
 
           <ion-button type="submit" [disabled]="loading" class="ion-margin-vertical custom-button rounded" color="primary"
