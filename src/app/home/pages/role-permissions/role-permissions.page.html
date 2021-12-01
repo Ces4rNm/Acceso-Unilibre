@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Permisos de Rol</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" id="main-content">
+  <ion-grid class="ion-text-left">
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-no-padding">
+        <!-- Survey -->
+        <ion-text color="dark" class="ion-text-justify bold">
+          <h4>{{list.titulo}}</h4>
+        </ion-text>
+
+        <ion-list class="bg-light">
+          <ion-item lines="full" class="ion-no-padding">
+            <ion-input type="number" class="ion-margin-start" placeholder="Documento del usuario"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Rol</ion-label>
+            <ion-select [(ngModel)]="list.tipo" (ionChange)="onSelectChange($event)" value="-2" placeholder="Elegir"
+              okText="Aceptar" cancelText="Cancelar">
+              <ion-select-option value="1">Medico</ion-select-option>
+              <ion-select-option value="2">Enfermero</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <ion-button (click)="setRol()" type="submit" [disabled]="loading" class="ion-margin-vertical custom-button rounded" color="primary"
+          expand="block">
+          <ion-label>
+            <ion-spinner *ngIf="loading"></ion-spinner> Asignar permisos
+          </ion-label>
+        </ion-button>
+
+        <!-- <ion-text color="medium" class="ion-text-justify">
+          <p class="ion-padding-vertical">{{list.desc}}</p>
+        </ion-text> -->
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

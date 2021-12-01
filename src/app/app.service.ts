@@ -133,6 +133,59 @@ export class AppService {
     return await this._loadingController.dismiss();
   }
 
+  // Data temp
+  temp: Array<any> = [
+    {
+      documento: 1143461705,
+      nombre: 'Juan Perez',
+      tipo: 1,
+      numero: 3005932413,
+      correo: 'juan@mail.com'
+    },
+    {
+      documento: 1143461702,
+      nombre: 'Daniela Mariño',
+      tipo: 1,
+      numero: 3235932413,
+      correo: 'Daniela@mail.com'
+    },
+    {
+      documento: 1143461703,
+      nombre: 'David Lopez',
+      tipo: 0,
+      numero: 3235932413,
+      correo: 'David@mail.com'
+    },
+    {
+      documento: 1143461704,
+      nombre: 'Julia Bozon',
+      tipo: -1,
+      numero: 3235932413,
+      correo: 'Julia@mail.com'
+    },
+    {
+      documento: 1143461705,
+      nombre: 'Felipe Cuadrado',
+      tipo: 1,
+      numero: 3235732413,
+      correo: 'Felipe@mail.com'
+    },
+    {
+      documento: 1143461706,
+      nombre: 'Alejandro Romero',
+      tipo: 0,
+      numero: 3235962413,
+      correo: 'Alejandro@mail.com'
+    },
+    {
+      documento: 1143461708,
+      nombre: 'Diana Vargas',
+      tipo: -1,
+      numero: 3235932433,
+      correo: 'Diana@mail.com'
+    }
+  ];
+
   isJsonString(strJson: string): boolean {
     // Validar JSON
     try {

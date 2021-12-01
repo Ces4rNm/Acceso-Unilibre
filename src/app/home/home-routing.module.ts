@@ -26,7 +26,19 @@ const routes: Routes = [
   },
   {
     path: 'update-data',
-    loadChildren: () => import('./pages/update-data/update-data.module').then( m => m.UpdateDataPageModule)
+    loadChildren: () => import('./pages/update-data/update-data.module').then(m => m.UpdateDataPageModule)
+  },
+  {
+    path: 'survey-list',
+    loadChildren: () => import('./pages/survey-list/survey-list.module').then(m => m.SurveyListPageModule)
+  },
+  {
+    path: 'survey-chart',
+    loadChildren: () => import('./pages/survey-chart/survey-chart.module').then(m => m.SurveyChartPageModule)
+  },
+  {
+    path: 'role-permissions',
+    loadChildren: () => import('./pages/role-permissions/role-permissions.module').then(m => m.RolePermissionsPageModule)
   },
   {
     path: '**',

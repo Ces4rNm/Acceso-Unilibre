@@ -15,7 +15,9 @@ export class HomePage implements OnInit {
     public _loadingController: LoadingController
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log("Home");
+   }
 
   ionViewWillEnter() {
     this._menu.enable(true, 'menu');

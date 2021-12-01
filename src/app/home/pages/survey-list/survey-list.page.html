@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Seguimiento de Encuesta</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" id="main-content">
+  <ion-grid class="ion-text-left">
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-no-padding">
+        <!-- Survey -->
+        <ion-text color="dark" class="ion-text-justify bold">
+          <h4>{{list.titulo}}</h4>
+        </ion-text>
+
+        <ion-list class="bg-light">
+          <ion-item>
+            <ion-label>Tipo de contagio por Covid-19</ion-label>
+            <ion-select [(ngModel)]="list.tipo" (ionChange)="onSelectChange($event)" value="-2" placeholder="Elegir" okText="Aceptar" cancelText="Cancelar">
+              <ion-select-option value="-2">Nivel Todos</ion-select-option>
+              <ion-select-option value="1">Nivel Bajo</ion-select-option>
+              <ion-select-option value="0">Nivel Medio</ion-select-option>
+              <ion-select-option value="-1">Nivel Alto</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-list-header>
+            <ion-label>
+              Resultados:
+            </ion-label>
+          </ion-list-header>
+          <div *ngFor="let result of list.results;let i = index">
+            <ion-item>
+              <ion-label>{{result.nombre}}</ion-label>
+              <br>
+              <ion-label>{{result.tipo}}</ion-label>
+              <br>
+              <ion-label>{{result.numero}}</ion-label>
+            </ion-item>
+          </div>
+        </ion-list>
+
+        <ion-text color="medium" class="ion-text-justify">
+          <p class="ion-padding-vertical">{{list.desc}}</p>
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

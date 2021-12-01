@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gráfico de Encuesta</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light" id="main-content">
+  <ion-grid class="ion-text-left">
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" size-xL="4" size-lg="5" size-md="6" class="ion-no-padding">
+
+        <ion-text color="dark" class="ion-text-justify bold">
+          <h4>{{list.titulo}}</h4>
+        </ion-text>
+        <br>
+        <!-- chart -->
+        <highcharts-chart *ngIf="showChart" [Highcharts]="Highcharts" [options]="chartOptions"
+          style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+
+        <ion-text color="medium" class="ion-text-justify">
+          <p class="ion-padding-vertical">{{list.desc}}</p>
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
