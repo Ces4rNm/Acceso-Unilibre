@@ -15,17 +15,20 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
-    canActivate: [HomeGuard]
-  },
-  {
     path: 'register',
     loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
   {
     path: 'password',
     loadChildren: () => import('./password/password.module').then(m => m.PasswordPageModule)
+  },
+  {
+    path: 'content',
+    loadChildren: () => import('./content/content.module').then(m => m.ContentPageModule)
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./splash/splash.module').then(m => m.SplashPageModule)
   },
   {
     path: '**',

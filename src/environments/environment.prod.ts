@@ -6,12 +6,12 @@ export const environment = {
     [
       {
         name: 'Inicio',
-        url: '/home',
+        url: '/content/home',
         icon: 'home'
       },
       {
         name: 'Actualizar Datos',
-        url: '/home/update-data',
+        url: '/content/update-data',
         icon: 'person-circle'
       },
     ],
@@ -19,17 +19,17 @@ export const environment = {
     [
       {
         name: 'Inicio',
-        url: '/home',
+        url: '/content/home',
         icon: 'home'
       },
       {
         name: 'Actualizar Datos',
-        url: '/home/update-data',
+        url: '/content/update-data',
         icon: 'person-circle'
       },
       {
         name: 'Permitir Acceso',
-        url: '/home/qr-scan',
+        url: '/content/qr-scan',
         icon: 'key'
       },
     ],
@@ -37,27 +37,27 @@ export const environment = {
     [
       {
         name: 'Inicio',
-        url: '/home',
+        url: '/content/home',
         icon: 'home'
       },
       {
         name: 'Actualizar Datos',
-        url: '/home/update-data',
+        url: '/content/update-data',
         icon: 'person-circle'
       },
       {
         name: 'Permitir Acceso',
-        url: '/home/qr-scan',
+        url: '/content/qr-scan',
         icon: 'key'
       },
       {
         name: 'Seguimiento de Encuesta',
-        url: '/home/survey-list',
+        url: '/content/survey-list',
         icon: 'medkit'
       },
       {
         name: 'Gráfico de Encuesta',
-        url: '/home/survey-chart',
+        url: '/content/survey-chart',
         icon: 'bar-chart'
       },
     ],
@@ -65,32 +65,32 @@ export const environment = {
     [
       {
         name: 'Inicio',
-        url: '/home',
+        url: '/content/home',
         icon: 'home'
       },
       {
         name: 'Actualizar Datos',
-        url: '/home/update-data',
+        url: '/content/update-data',
         icon: 'person-circle'
       },
       {
         name: 'Permitir Acceso',
-        url: '/home/qr-scan',
+        url: '/content/qr-scan',
         icon: 'key'
       },
       {
         name: 'Seguimiento de Encuesta',
-        url: '/home/survey-list',
+        url: '/content/survey-list',
         icon: 'medkit'
       },
       {
         name: 'Gráfico de Encuesta',
-        url: '/home/survey-chart',
+        url: '/content/survey-chart',
         icon: 'bar-chart'
       },
       {
         name: 'Permisos de Rol',
-        url: '/home/role-permissions',
+        url: '/content/role-permissions',
         icon: 'id-card'
       },
     ]

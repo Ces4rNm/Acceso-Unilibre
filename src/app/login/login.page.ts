@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
             let session = data.print;
             this._appService.session = session;
             if (session.hasOwnProperty('rol')) {
-              this._router.navigate(['/home']);
+              this._router.navigate(['/content']);
             } else {
               this._router.navigate(['/login']);
             }

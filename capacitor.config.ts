@@ -1,10 +1,24 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.unilibre.app',
-  appName: 'Unilibre-CovidApp',
+  appId: 'co.edu.unilibrebaq.www',
+  appName: 'Acceso Unilibre',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  server: {
+    hostname: 'www.unilibrebaq.edu.co',
+    iosScheme: 'ionic',
+    androidScheme: 'https',
+    allowNavigation: []
+  },
+  plugins: {
+    SplashScreen: {
+      launchAutoHide: true,
+      backgroundColor: "#1D7151",
+      androidSplashResourceName: "splash",
+      androidScaleType: "CENTER_INSIDE",
+    },
+  }
 };
 
 export default config;

@@ -19,7 +19,7 @@ export class TourtGuard implements CanActivate {
             case 1:
             case 2:
             case 3:
-              return this._router.navigateByUrl('/home');;
+              return this._router.navigateByUrl('/content');;
               break;
             default:
               return this._router.navigateByUrl('/login');

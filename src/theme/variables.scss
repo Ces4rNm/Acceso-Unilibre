@@ -106,6 +106,14 @@
   --ion-color-redlight-contrast-rgb: 0, 0, 0;
   --ion-color-redlight-shade: #d2adad;
   --ion-color-redlight-tint: #f1cbcb;
+
+  /** green **/
+  --ion-color-green: #1D7151;
+  --ion-color-green-rgb: 29, 113, 81;
+  --ion-color-green-contrast: #ffffff;
+  --ion-color-green-contrast-rgb: 255, 255, 255;
+  --ion-color-green-shade: #1a6347;
+  --ion-color-green-tint: #347f62;
 }
 
 // New colors class
@@ -145,6 +153,15 @@
   --ion-color-tint: var(--ion-color-redlight-tint);
 }
 
+.ion-color-green {
+  --ion-color-base: var(--ion-color-green);
+  --ion-color-base-rgb: var(--ion-color-green-rgb);
+  --ion-color-contrast: var(--ion-color-green-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-green-contrast-rgb);
+  --ion-color-shade: var(--ion-color-green-shade);
+  --ion-color-tint: var(--ion-color-green-tint);
+}
+
 // Style elements default
 $colors-class: ("primary":--ion-color-primary,
   "secondary":--ion-color-secondary,
@@ -159,6 +176,7 @@ $colors-class: ("primary":--ion-color-primary,
   "grey":--ion-color-grey,
   "white":--ion-color-white,
   "redlight":--ion-color-redlight,
+  "green":--ion-color-green,
 );
 
 @each $name,

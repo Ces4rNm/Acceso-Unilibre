@@ -14,26 +14,11 @@ export class SidebarComponent implements OnInit {
 
   prefersDark: any;
 
-  constructor(public _menu: MenuController, private _router: Router, public _appService: AppService) {
-    // this.prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    // this.darkMode = this.prefersDark.matches;
-    // if (this.prefersDark.matches) {
-    //   document.body.classList.add('dark');
-    // } else {
-    //   document.body.classList.remove('dark');
-    // }
-
-    // this.prefersDark.addEventListener('change', function (e) {
-    //   if (e.matches) {
-    //     document.body.classList.add('dark');
-    //     this.darkMode = true;
-    //   } else {
-    //     document.body.classList.remove('dark');
-    //     this.darkMode = false;
-    //   }
-    //   console.log(e.matches, this.darkMode);
-    // });
-  }
+  constructor(
+    public _menu: MenuController,
+    private _router: Router,
+    public _appService: AppService
+  ) { }
 
   change() {
     this.darkMode = !this.darkMode;
@@ -48,7 +33,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() { }
 
   openMenu() {
-    this._menu.enable(true, 'menu');
+    // this._menu.enable(true, 'menu');
     this._menu.open('menu');
   }
 

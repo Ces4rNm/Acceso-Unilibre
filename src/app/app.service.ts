@@ -12,6 +12,8 @@ import { LoadingController } from '@ionic/angular';
 })
 export class AppService {
 
+  platformIs: string;
+
   constructor(
     private _http: HttpClient,
     private _router: Router,
